@@ -2,7 +2,6 @@
 require("userClasses/newUser.php");//newBakers parent class
 
 	class newBaker extends newUser{
-		var $surname;
 		var $email;
 		var $addressLine1;
 		var $addressLine2;
@@ -21,9 +20,9 @@ require("userClasses/newUser.php");//newBakers parent class
 			$this->setPictureCount($pictureCount);
 			$this->setIsApproved($isApproved);
 		}//end constructor
-		
-		
-		
+
+
+
 		function setEmail($email)
 		{
 			$this->email=$email;
@@ -32,7 +31,7 @@ require("userClasses/newUser.php");//newBakers parent class
 		{
 			return $this->email;
 		}//getEmail
-		
+
 		function setAddressLine1($addressLine1)
 		{
 			$this->addressLine1=$addressLine1;
@@ -41,7 +40,7 @@ require("userClasses/newUser.php");//newBakers parent class
 		{
 			return $this->addressLine1;
 		}//setAddressLine1
-		
+
 		function setAddressLine2($addressLine2)
 		{
 			$this->addressLine2=$addressLine2;
@@ -50,7 +49,7 @@ require("userClasses/newUser.php");//newBakers parent class
 		{
 			return $this->addressLine2;
 		}//getAddressLine2
-		
+
 		function setPostCode($postCode)
 		{
 			$this->postCode=$postCode;
@@ -59,7 +58,7 @@ require("userClasses/newUser.php");//newBakers parent class
 		{
 			return $this->postCode;
 		}//getPostCode
-		
+
 		function setCounty($county)
 		{
 			$this->county=$county;
@@ -68,7 +67,7 @@ require("userClasses/newUser.php");//newBakers parent class
 		{
 			return $this->county;
 		}//getCountry
-	
+
 		function setPictureCount($pictureCount)
 		{
 			$this->pictureCount=$pictureCount;
@@ -77,7 +76,7 @@ require("userClasses/newUser.php");//newBakers parent class
 		{
 			return $this->pictureCount;
 		}//getPictureCount
-		
+
 		function setIsApproved($isApproved)
 		{
 			$this->isApproved=$isApproved;
@@ -86,7 +85,7 @@ require("userClasses/newUser.php");//newBakers parent class
 		{
 			return $this->isApproved;
 		}//getIsApproved
-	
+
 	}//end newCustomer
 
 ?>
