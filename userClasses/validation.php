@@ -4,10 +4,12 @@
      */
     class Validation
     {
-
-        function __construct(argument)
+        function validateEmail($email)
         {
-            # code...
+            $pattern = '';
+            preg_match($pattern, $email, $matches);
+
+            if($matches -> true)
         }
     }
 

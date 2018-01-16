@@ -29,11 +29,11 @@
 		{
 			echo "An error occured, please try again";
 		}//else if the reCAPTCHA was a failure(for the user)
-		
-		
-		
-		
-		
+
+
+
+
+
 
 	}//if data was submitted successfully from the form
 
@@ -65,7 +65,7 @@
 		<div class="g-recaptcha" data-sitekey="<?php echo $siteKey ?>"></div>
 
 		<input type="submit" value="Create Account" name="customerSubmit">
-		
+
 	</form><!--end createCustomerForm-->
 </body>
 
@@ -75,7 +75,3 @@
 3.Do not change the location of any file in the directory, this file is reliant on others
 4.In relation to the "reCAPTCHAWarning" tag, feel free to change it or place it as a pop up on this page, however it must exist and be easily visible
 -->
-
-
-
-
