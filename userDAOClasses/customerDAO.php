@@ -1,6 +1,6 @@
 <?php
-	require('../coursework/databaseDetails.php');
-	require("../coursework/userClasses/newCustomer.php");//go up a level, then find the file
+	require('../MaryAndAmy/databaseDetails.php');
+	require("../MaryAndAmy/userClasses/newCustomer.php");//go up a level, then find the file
 	class customerDAO
 	{
 		var $serverName;
@@ -14,7 +14,7 @@
 			$this->password=$GLOBALS["passwordS"];
 			$this->database=$GLOBALS["database"];
 		}//end constructor
-		
+
 		function getConnection()
 		{
 			$connection = new mysqli($this->serverName, $this->username, $this->password, $this->database);
@@ -24,12 +24,12 @@
 			}//if there was a connection error
 			return $connection;
 		}//end getConnection
-		
+
 		function createCustomer($newCustomerObject)
 		{
 			$connection=$this->getConnection();
 			$prepStatement=$connection->prepare("INSERT INTO customer (Name,Password,Surname,Email,AddressLine1,AddressLine2,PostCode,County) VALUES(?,?,?,?,?,?,?,?)");
-			
+
 			$name=$newCustomerObject->getName();
 			$passwordUser=$newCustomerObject->getPassword();
 			$surname=$newCustomerObject->getSurname();
@@ -48,7 +48,7 @@
 				return false;
 				//die("Something went wrong when creating your account, please try again later");
 			}//if query was a failure
-			
+
 		}//end createCustomer
 	}//end customerDAO
 ?>
