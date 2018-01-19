@@ -45,18 +45,18 @@
 <body>
 	<form method="post" id="createBakerForm">
 		<h3>Company Name</h3>
-		<input type="text" name="companyName">
+		<input type="text" name="companyName" required>
 
 		<h3>Password</h3>
-		<input type="password" name="password">
+		<input type="password" name="password" required>
 		<h3>Email</h3>
-		<input type="text" name="email">
+		<input type="text" name="email" required>
 		<h3>address Line 1</h3>
-		<input type="text" name="addressLine1">
+		<input type="text" name="addressLine1" required>
 		<h3>address Line 2</h3>
 		<input type="text" name="addressLine2">
 		<h3>Post Code</h3>
-		<input type="text" name="postCode">
+		<input type="text" name="postCode" required>
 		<h3>County</h3><!--feel free to remove country if it is irrelevant-->
 		<input type="text" name="county">
 		<p id="reCAPTCHAWarning">Please note that for the purposes of reCAPTCHA, data on hardware,software and your IP address will be collected and sent to Google

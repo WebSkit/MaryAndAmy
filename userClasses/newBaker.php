@@ -2,6 +2,7 @@
 require("userClasses/newUser.php");//newBakers parent class
 
 	class newBaker extends newUser{
+		var $surname;
 		var $email;
 		var $addressLine1;
 		var $addressLine2;
@@ -9,14 +10,14 @@ require("userClasses/newUser.php");//newBakers parent class
 		var $country;
 		var $pictureCount;
 		var $isApproved;
-		function __construct($companyName,$password,$email,$addressLine1,$addressLine2,$postCode,$country,$pictureCount,$isApproved)
+		function __construct($companyName,$password,$email,$addressLine1,$addressLine2,$postCode,$county,$pictureCount,$isApproved)
 		{
 			parent::__construct($companyName,$password);//calls parent constructor
 			$this->setEmail($email);
 			$this->setAddressLine1($addressLine1);
 			$this->setAddressLine2($addressLine2);
 			$this->setPostCode($postCode);
-			$this->setCountry($country);
+			$this->setCounty($county);
 			$this->setPictureCount($pictureCount);
 			$this->setIsApproved($isApproved);
 		}//end constructor
@@ -59,13 +60,13 @@ require("userClasses/newUser.php");//newBakers parent class
 			return $this->postCode;
 		}//getPostCode
 
-		function setCountry($country)
+		function setCounty($county)
 		{
-			$this->country=$country;
+			$this->county=$county;
 		}//setCountry
-		function getCountry()
+		function getCounty()
 		{
-			return $this->country;
+			return $this->county;
 		}//getCountry
 
 		function setPictureCount($pictureCount)
