@@ -37,7 +37,7 @@
 			$addressLine1=$newCustomerObject->getAddressLine1();
 			$addressLine2=$newCustomerObject->getAddressLine2();
 			$postCode=$newCustomerObject->getPostCode();
-			$county=$newCustomerObject->getCountry();
+			$country=$newCustomerObject->getCountry();
 			$prepStatement->bind_param("ssssssss",$name,$passwordUser,$surname,$email,$addressLine1,$addressLine2,$postCode,$country);
 			if($prepStatement->execute())
 			{

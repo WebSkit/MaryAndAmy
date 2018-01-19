@@ -36,10 +36,10 @@
 			$addressLine1=$newBakerObject->getAddressLine1();
 			$addressLine2=$newBakerObject->getAddressLine2();
 			$postCode=$newBakerObject->getPostCode();
-			$county=$newBakerObject->getCounty();
+			$country=$newBakerObject->getCountry();
 			$pictureCount=$newBakerObject->getPictureCount();
 			$isApproved=$newBakerObject->getIsApproved();
-			$prepStatement->bind_param("sssssssss",$companyName,$passwordUser,$email,$addressLine1,$addressLine2,$postCode,$county,$pictureCount,$isApproved);
+			$prepStatement->bind_param("sssssssss",$companyName,$passwordUser,$email,$addressLine1,$addressLine2,$postCode,$country,$pictureCount,$isApproved);
 			if($prepStatement->execute())
 			{
 				return true;

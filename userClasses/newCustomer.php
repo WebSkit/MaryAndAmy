@@ -7,9 +7,9 @@
 		var $addressLine1;
 		var $addressLine2;
 		var $postCode;
-		var $county;
+		var $country;
 
-		function __construct($name,$password,$surname,$email,$addressLine1,$addressLine2,$postCode,$county)
+		function __construct($name,$password,$surname,$email,$addressLine1,$addressLine2,$postCode,$country)
 		{
 			parent::__construct($name,$password);//calls parent constructor
 			$this->setSurname($surname);
@@ -17,7 +17,7 @@
 			$this->setAddressLine1($addressLine1);
 			$this->setAddressLine2($addressLine2);
 			$this->setPostCode($postCode);
-			$this->setCounty($county);
+			$this->setCountry($country);
 		}//end constructor
 
 		function setSurname($surname)
@@ -73,7 +73,7 @@
 		{
 			return $this->country;
 		}//getCountry
-	
+
 	}//end newCustomer
 
 ?>
