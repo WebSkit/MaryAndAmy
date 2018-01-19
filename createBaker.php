@@ -6,8 +6,8 @@
 		$secretKey=$secret;//the reCAPTCHA secret key
 		$response=$_POST["g-recaptcha-response"];//required reCAPTCHA response(aka sends the user data to google)
 		$ip=$_SERVER['REMOTE_ADDR'];
-		$url=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$response."&remoteip=".$ip);//the data is sent to this google page
 		//file_get_contents, in this case, sends a request to google and gets the JSON response back in the form of a string
+		$url=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$response."&remoteip=".$ip);//the data is sent to this google page
 		$arrayResult=json_decode($url,true);//a JSON object was returned, converts to an array
 		//param2=true means that it is returning an associative array
 		if($arrayResult["success"]==true)
@@ -29,11 +29,11 @@
 		{
 			echo "An error occured, please try again";
 		}//else if the reCAPTCHA was a failure(for the user)
-		
-		
-		
-		
-		
+
+
+
+
+
 
 	}//if data was submitted successfully from the form
 
@@ -46,7 +46,7 @@
 	<form method="post" id="createBakerForm">
 		<h3>Company Name</h3>
 		<input type="text" name="companyName">
-		
+
 		<h3>Password</h3>
 		<input type="password" name="password">
 		<h3>Email</h3>
@@ -64,6 +64,6 @@
 		<div class="g-recaptcha" data-sitekey="<?php echo $siteKey ?>"></div>
 
 		<input type="submit" value="Create Account" name="customerSubmit">
-		
+
 	</form><!--end createCustomerForm-->
 </body>

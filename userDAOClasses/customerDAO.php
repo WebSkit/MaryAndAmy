@@ -28,7 +28,7 @@
 		function createCustomer($newCustomerObject)
 		{
 			$connection=$this->getConnection();
-			$prepStatement=$connection->prepare("INSERT INTO customer (Name,Password,Surname,Email,AddressLine1,AddressLine2,PostCode,County) VALUES(?,?,?,?,?,?,?,?)");
+			$prepStatement=$connection->prepare("INSERT INTO customer (Name,Password,Surname,Email,AddressLine1,AddressLine2,PostCode,Country) VALUES(?,?,?,?,?,?,?,?)");
 
 			$name=$newCustomerObject->getName();
 			$passwordUser=$newCustomerObject->getPassword();
@@ -37,8 +37,8 @@
 			$addressLine1=$newCustomerObject->getAddressLine1();
 			$addressLine2=$newCustomerObject->getAddressLine2();
 			$postCode=$newCustomerObject->getPostCode();
-			$county=$newCustomerObject->getCounty();
-			$prepStatement->bind_param("ssssssss",$name,$passwordUser,$surname,$email,$addressLine1,$addressLine2,$postCode,$county);
+			$county=$newCustomerObject->getCountry();
+			$prepStatement->bind_param("ssssssss",$name,$passwordUser,$surname,$email,$addressLine1,$addressLine2,$postCode,$country);
 			if($prepStatement->execute())
 			{
 				return true;

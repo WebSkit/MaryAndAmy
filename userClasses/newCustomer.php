@@ -8,7 +8,7 @@
 		var $addressLine2;
 		var $postCode;
 		var $county;
-		
+
 		function __construct($name,$password,$surname,$email,$addressLine1,$addressLine2,$postCode,$county)
 		{
 			parent::__construct($name,$password);//calls parent constructor
@@ -19,7 +19,7 @@
 			$this->setPostCode($postCode);
 			$this->setCounty($county);
 		}//end constructor
-		
+
 		function setSurname($surname)
 		{
 			$this->surname=$surname;
@@ -28,7 +28,7 @@
 		{
 			return $this->surname;
 		}//getSurname
-	
+
 		function setEmail($email)
 		{
 			$this->email=$email;
@@ -37,7 +37,7 @@
 		{
 			return $this->email;
 		}//getEmail
-		
+
 		function setAddressLine1($addressLine1)
 		{
 			$this->addressLine1=$addressLine1;
@@ -46,7 +46,7 @@
 		{
 			return $this->addressLine1;
 		}//setAddressLine1
-		
+
 		function setAddressLine2($addressLine2)
 		{
 			$this->addressLine2=$addressLine2;
@@ -55,7 +55,7 @@
 		{
 			return $this->addressLine2;
 		}//getAddressLine2
-		
+
 		function setPostCode($postCode)
 		{
 			$this->postCode=$postCode;
@@ -64,14 +64,14 @@
 		{
 			return $this->postCode;
 		}//getPostCode
-		
-		function setCounty($county)
+
+		function setCountry($country)
 		{
-			$this->county=$county;
+			$this->country=$country;
 		}//setCountry
-		function getCounty()
+		function getCountry()
 		{
-			return $this->county;
+			return $this->country;
 		}//getCountry
 	
 	}//end newCustomer
