@@ -28,7 +28,7 @@
 		function createBaker($newBakerObject)
 		{
 			$connection=$this->getConnection();
-			$prepStatement=$connection->prepare("INSERT INTO bakers (companyName,password,email,addressLine1,addressLine2,postCode,county,pictureCount,isApproved) VALUES(?,?,?,?,?,?,?,?,?)");
+			$prepStatement=$connection->prepare("INSERT INTO bakers (companyName,password,email,addressLine1,addressLine2,postCode,county,pictureCount,isApproved,servedArea) VALUES(?,?,?,?,?,?,?,?,?,?)");
 
 			$companyName=$newBakerObject->getName();
 			$passwordUser=$newBakerObject->getPassword();
@@ -39,7 +39,8 @@
 			$county=$newBakerObject->getCounty();
 			$pictureCount=$newBakerObject->getPictureCount();
 			$isApproved=$newBakerObject->getIsApproved();
-			$prepStatement->bind_param("sssssssss",$companyName,$passwordUser,$email,$addressLine1,$addressLine2,$postCode,$county,$pictureCount,$isApproved);
+			$servedArea=$newBakerObject->getServedArea();
+			$prepStatement->bind_param("sssssssss",$companyName,$passwordUser,$email,$addressLine1,$addressLine2,$postCode,$county,$pictureCount,$isApproved,$servedArea);
 			if($prepStatement->execute())
 			{
 				return true;
