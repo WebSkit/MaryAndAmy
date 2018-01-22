@@ -12,7 +12,7 @@
 		//param2=true means that it is returning an associative array
 		if($arrayResult["success"]==true)
 		{
-			$tempBaker=new newBaker($_POST["companyName"],$_POST["password"],$_POST["email"],$_POST["addressLine1"],$_POST["addressLine2"],$_POST["postCode"],$_POST["county"],5,false);
+			$tempBaker=new newBaker($_POST["companyName"],$_POST["password"],$_POST["email"],$_POST["addressLine1"],$_POST["addressLine2"],$_POST["postCode"],$_POST["county"],5,false,$_POST["servedArea"]);
 			//var_dump($tempUser);
 			$tempDAO=new bakerDAO();
 			$accountCreated=$tempDAO->createBaker($tempBaker);
@@ -59,6 +59,8 @@
 		<input type="text" name="postCode" required>
 		<h3>County</h3><!--feel free to remove country if it is irrelevant-->
 		<input type="text" name="county">
+		<h3>Served Area(in miles)</h3>
+		<input type="text" name="servedArea">
 		<p id="reCAPTCHAWarning">Please note that for the purposes of reCAPTCHA, data on hardware,software and your IP address will be collected and sent to Google
 		by creating an account, you agree to allow them to do this</p>
 		<div class="g-recaptcha" data-sitekey="<?php echo $siteKey ?>"></div>
