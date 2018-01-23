@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	$_SESSION["customerId"]=1;//this is only testing will need to change it later
+	$_SESSION["bakerId"]=1;//this is only testing will need to change it later
 	require('../MaryAndAmy/databaseDetails.php');
 	require("../MaryAndAmy/userClasses/newBaker.php");//go up a level, then find the file
 	class bakerDAO
@@ -57,7 +57,7 @@
 			$connection=$this->getConnection();
 			$prepStatement=$connection->prepare("UPDATE bakers SET companyName=?,password=?,email=?,addressLine1=?,addressLine2=?,postCode=?,county=?,pictureCount=?,isApproved=?,servedArea=? WHERE bakerId=?;");
 			
-			$id=$_SESSION["customerId"];
+			$id=$_SESSION["bakerId"];
 			$companyName=$newBakerObject->getName();
 			$passwordUser=$newBakerObject->getPassword();
 			$email=$newBakerObject->getEmail();
