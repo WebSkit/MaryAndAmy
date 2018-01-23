@@ -26,13 +26,14 @@
 			$first_name = test_input($_POST["customerName"]);
 			$surname = test_input($_POST["surname"]);
 			$password = test_input($_POST["password"]);
+			$password_reenter = test_input($_POST["password-reenter"]);
 			$email = test_input($_POST["email"]);
 			$address_line1 = test_input($_POST["addressLine1"]);
 			$address_line2 = test_input($_POST["addressLine2"]);
 			$county = test_input($_POST["county"]);
 			$postcode = test_input($_POST["postcode"]);
 
-			if($validation -> validateAll($first_name, $surname, $email, $address_line1, $address_line2, $county, $postcode)) {
+			if($validation -> validateAll($first_name, $surname, $email, $address_line1, $address_line2, $county, $postcode) && $password == $password_reenter) {
 				$tempUser=new newCustomer($first_name,$password,$surname,$email,$address_line1,$address_line2,$postcode,$county);
 				//var_dump($tempUser);
 				$tempDAO=new customerDAO();
@@ -79,6 +80,8 @@
 		<input type="text" name="surname" value="<?php echo $surname;?>" required>*
 		<h3>Password</h3>
 		<input type="password" name="password" required>*
+		<h3>Re-enter Password</h3>
+		<input type="password" name="password-reenter" required>*
 		<h3>Email</h3>
 		<input type="text" name="email" value="<?php echo $email;?>" required>*
 		<br><br>
