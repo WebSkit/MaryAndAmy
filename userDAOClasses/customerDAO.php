@@ -51,12 +51,12 @@
 				return false;
 			}//if query was a failure
 		}//end createCustomer
-		
+
 		function updateCustomer($newCustomerObject)
 		{
 			$connection=$this->getConnection();
 			$prepStatement=$connection->prepare("UPDATE customer SET name=?,surname=?,password=?,email=?,addressLine1=?,addressLine2=?,postCode=?,county=? WHERE customerId=?;");
-			
+
 			$id=$_SESSION["customerId"];
 			$name=$newCustomerObject->getName();
 			$passwordUser=$newCustomerObject->getPassword();
@@ -75,5 +75,6 @@
 			{
 				return false;
 			}//if query was a failure
+		}
 	}//end customerDAO
 ?>
