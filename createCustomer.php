@@ -20,6 +20,8 @@
 		//param2=true means that it is returning an associative array
 		if($arrayResult["success"]==true)
 		{
+			$validation = new Validation();
+			$accountCreated = false;
 			$first_name = test_input($_POST["customerName"]);
 			$surname = test_input($_POST["surname"]);
 			$password = test_input($_POST["password"]);
@@ -27,12 +29,15 @@
 			$address_line1 = test_input($_POST["addressLine1"]);
 			$address_line2 = test_input($_POST["addressLine2"]);
 			$county = test_input($_POST["county"]);
-			$postcode = test_input($_POST["postCode"]);
+			$postcode = test_input($_POST["postcode"]);
 
-			$tempUser=new newCustomer($first_name,$password,$surname,$email,$address_line1,$address_line2,$postcode,$county);
-			//var_dump($tempUser);
-			$tempDAO=new customerDAO();
-			$accountCreated=$tempDAO->createCustomer($tempUser);
+			if($validation -> validateName($first_name) && $validation -> validateEmail($email)) {
+				$tempUser=new newCustomer($first_name,$password,$surname,$email,$address_line1,$address_line2,$postcode,$county);
+				//var_dump($tempUser);
+				$tempDAO=new customerDAO();
+				$accountCreated=$tempDAO->createCustomer($tempUser);
+			}
+
 			if($accountCreated==true)
 			{
 				echo "account created";
