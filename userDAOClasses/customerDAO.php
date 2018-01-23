@@ -30,7 +30,7 @@
 		function createCustomer($newCustomerObject)
 		{
 			$connection=$this->getConnection();
-			$prepStatement=$connection->prepare("INSERT INTO customer (name,password,surname,email,addressLine1,AddressLine2,postCode,county) VALUES(?,?,?,?,?,?,?,?)");
+			$prepStatement=$connection->prepare("INSERT INTO customer (name,password,surname,email,addressLine1,addressLine2,postCode,county) VALUES(?,?,?,?,?,?,?,?)");
 
 			$name=$newCustomerObject->getName();
 			$passwordUser=$newCustomerObject->getPassword();
