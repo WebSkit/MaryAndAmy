@@ -1,4 +1,6 @@
 <?php
+	session_start();
+	$_SESSION["customerId"]=1;//this is only testing will need to change it later
 	require('../MaryAndAmy/databaseDetails.php');
 	require("../MaryAndAmy/userClasses/newCustomer.php");//go up a level, then find the file
 	class customerDAO
