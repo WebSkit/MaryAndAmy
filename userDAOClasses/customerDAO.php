@@ -47,9 +47,31 @@
 			else
 			{
 				return false;
-				//die("Something went wrong when creating your account, please try again later");
 			}//if query was a failure
-
 		}//end createCustomer
+		
+		function updateCustomer($newCustomerObject)
+		{
+			$connection=$this->getConnection();
+			$prepStatement=$connection->prepare("UPDATE customer SET name=?,surname=?,password=?,email=?,addressLine1=?,addressLine2=?,postCode=?,county=? WHERE customerId=?;");
+			
+			$id=$_SESSION["customerId"];
+			$name=$newCustomerObject->getName();
+			$passwordUser=$newCustomerObject->getPassword();
+			$surname=$newCustomerObject->getSurname();
+			$email=$newCustomerObject->getEmail();
+			$addressLine1=$newCustomerObject->getAddressLine1();
+			$addressLine2=$newCustomerObject->getAddressLine2();
+			$postCode=$newCustomerObject->getPostCode();
+			$county=$newCustomerObject->getCounty();
+			$prepStatement->bind_param("sssssssss",$name,$surname,$passwordUser,$email,$addressLine1,$addressLine2,$postCode,$county,$id);
+			if($prepStatement->execute())
+			{
+				return true;
+			}//if query was a success
+			else
+			{
+				return false;
+			}//if query was a failure
 	}//end customerDAO
 ?>
