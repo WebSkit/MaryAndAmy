@@ -9,6 +9,7 @@
 	  $data = htmlspecialchars($data);
 	  return $data;
 	}
+	$first_name=$surname=$password=$email=$address_line1=$address_line2=$county=$postcode="";
 	if(isset($_POST["customerSubmit"]))
 	{
 		$secretKey=$secret;//the reCAPTCHA secret key
@@ -31,7 +32,7 @@
 			$county = test_input($_POST["county"]);
 			$postcode = test_input($_POST["postcode"]);
 
-			if($validation -> validateName($first_name) && $validation -> validateEmail($email)) {
+			if($validation -> validateAll($first_name, $surname, $email, $address_line1, $address_line2, $county, $postcode)) {
 				$tempUser=new newCustomer($first_name,$password,$surname,$email,$address_line1,$address_line2,$postcode,$county);
 				//var_dump($tempUser);
 				$tempDAO=new customerDAO();
@@ -71,26 +72,28 @@
 	-->
 	<form method="post" id="createCustomerForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 		<h3>First Name</h3>
-		<input type="text" name="customerName" required>*
+		<!--value attribute will allow the values entered by user to remain in the fields in the event that the form has been submitted
+			but validation has failed-->
+		<input type="text" name="customerName" value="<?php echo $first_name;?>" required>*
 		<h3>Surname</h3>
-		<input type="text" name="surname" required>*
+		<input type="text" name="surname" value="<?php echo $surname;?>" required>*
 		<h3>Password</h3>
 		<input type="password" name="password" required>*
 		<h3>Email</h3>
-		<input type="text" name="email" required>*
+		<input type="text" name="email" value="<?php echo $email;?>" required>*
 		<br><br>
 		<div id="locationField">
 	    	<input id="autocomplete" placeholder="Enter your address"
 				onFocus="geolocate()" type="text"></input>
 	    </div>
 	    <h3>Address Line 1</h3>
-	    <input name = "addressLine1" id="route" required></input>*
+	    <input name = "addressLine1" id="route" value="<?php echo $address_line1;?>" required></input>*
 	    <h3>City/Town</h3>
-	    <input name = "addressLine2" id="postal_town" required></input>*
+	    <input name = "addressLine2" id="postal_town" value="<?php echo $address_line2;?>" required></input>*
 	    <h3>County</h3>
-	    <input name="county" id="administrative_area_level_2" required></input>*
+	    <input name="county" id="administrative_area_level_2" value="<?php echo $county;?>" required></input>*
 	    <h3>Postcode</h3>
-	    <input id="postal_code" name = "postcode" required></input>*
+	    <input id="postal_code" name = "postcode" value="<?php echo $postcode;?>" required></input>*
 
 		<p id="reCAPTCHAWarning">Please note that for the purposes of reCAPTCHA, data on hardware,software and your IP address will be collected and sent to Google
 		by creating an account, you agree to allow them to do this</p>
