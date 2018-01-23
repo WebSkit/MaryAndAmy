@@ -1,4 +1,6 @@
 <?php
+	session_start();
+	$_SESSION["customerId"]=1;//this is only testing will need to change it later
 	require('../MaryAndAmy/databaseDetails.php');
 	require("../MaryAndAmy/userClasses/newBaker.php");//go up a level, then find the file
 	class bakerDAO
@@ -48,9 +50,36 @@
 			else
 			{
 				return false;
-				//die("Something went wrong when creating your account, please try again later");
 			}//if query was a failure
-
+		
+		function updateBaker($newBakerObject)
+		{
+			$connection=$this->getConnection();
+			$prepStatement=$connection->prepare("UPDATE bakers SET companyName=?,password=?,email=?,addressLine1=?,addressLine2=?,postCode=?,county=?,pictureCount=?,isApproved=?,servedArea=? WHERE bakerId=?;");
+			
+			$id=$_SESSION["customerId"];
+			$companyName=$newBakerObject->getName();
+			$passwordUser=$newBakerObject->getPassword();
+			$email=$newBakerObject->getEmail();
+			$addressLine1=$newBakerObject->getAddressLine1();
+			$addressLine2=$newBakerObject->getAddressLine2();
+			$postCode=$newBakerObject->getPostCode();
+			$county=$newBakerObject->getCounty();
+			$pictureCount=$newBakerObject->getPictureCount();
+			$isApproved=$newBakerObject->getIsApproved();
+			$servedArea=$newBakerObject->getServedArea();
+			
+			$prepStatement->bind_param("sssssssssss",$companyName,$passwordUser,$email,$addressLine1,$addressLine2,$postCode,$county,$pictureCount,$isApproved,$servedArea,$id);
+			if($prepStatement->execute())
+			{
+				return true;
+			}//if query was a success
+			else
+			{
+				return false;
+			}//if query was a failure
+			
+		}//end createCustomer
 		}//end createCustomer
 	}//end customerDAO
 ?>
