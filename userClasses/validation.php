@@ -18,7 +18,7 @@
             $pattern = "/^[a-zA-Z ]*$/";
             if (preg_match($pattern,$name)) {
                 return true;
-            }\
+            }
             else {
                 //$name_err = "Either the First Name or the Surname is in wrong format";
                 return false;
