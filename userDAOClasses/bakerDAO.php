@@ -30,7 +30,9 @@
 		function createBaker($new_baker)
 		{
 			$connection=$this->getConnection();
-			$prep_statement=$connection->prepare("INSERT INTO bakers (company_name,password,email,address_line1,address_line2,postcode,county,picture_count,is_approved,served_area) VALUES(?,?,?,?,?,?,?,?,?,?)");
+			$prep_statement=$connection->prepare("INSERT INTO baker (company_name,password,address_line1,address_line2,county,postcode,picture_count,is_approved,
+				served_area,logo,website,shop_phone_number,business_type,min_notice_time,admin_name,admin_email,contact_name,contact_email,facebook_page)
+			VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
 			$company_name=$new_baker->getName();
 			$password=$new_baker->getPassword();
@@ -42,7 +44,19 @@
 			$picture_count=$new_baker->getPictureCount();
 			$is_approved=$new_baker->getIsApproved();
 			$served_area=$new_baker->getServedArea();
-			$prep_statement->bind_param("sssssssss",$company_name,$password,$email,$address_line1,$address_line2,$postcode,$county,$picture_count,$is_approved,$served_area);
+			$logo="hhh";
+			$website="ddd";
+			$shop_phone_number="0161";
+			$business_type="birthday cakes";
+			$min_notice_time="5";
+			$admin_name="MAry";
+			$admin_email="hello@gmail.com";
+			$contact_name="Amy";
+			$contact_email="amy@mary.com";
+			$facebook_page="facebook.com";
+
+			$prep_statement->bind_param("sssssssssssssssssss",$company_name,$password,$address_line1,$address_line2,$county,$postcode,$picture_count,$is_approved,
+				$served_area,$logo,$website,$shop_phone_number,$business_type,$min_notice_time,$admin_name,$admin_email,$contact_name,$contact_email,$facebook_page);
 			if($prep_statement->execute())
 			{
 				return true;

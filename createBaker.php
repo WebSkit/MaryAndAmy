@@ -40,25 +40,32 @@
 ?>
 <head>
 	<script src='https://www.google.com/recaptcha/api.js'></script>
+	<script src="js/address_autocomplete.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC378_jfZXOZmOIHg9qBtRcN3fC3rXWgOk&libraries=places&callback=initAutocomplete"
+	  async defer></script>
 </head>
 
 <body>
 	<form method="post" id="new_baker_form">
 		<h3>Company Name</h3>
 		<input type="text" name="company_name" required>
-
-		<h3>Password</h3>
-		<input type="password" name="password" required>
 		<h3>Email</h3>
 		<input type="text" name="email" required>
+		<h3>Password</h3>
+		<input type="password" name="password" required>
+		<br><br>
+		<div id="locationField">
+	    	<input id="autocomplete" placeholder="Enter your address"
+				onFocus="geolocate()" type="text"></input>
+	    </div>
 		<h3>address Line 1</h3>
-		<input type="text" name="address_line1" required>
+		<input type="text" name="address_line1" id="route" required>
 		<h3>address Line 2</h3>
-		<input type="text" name="address_line2">
+		<input type="text" name="address_line2" id="postal_town">
 		<h3>County</h3><!--feel free to remove country if it is irrelevant-->
-		<input type="text" name="county">
-		<h3>Post Code</h3>
-		<input type="text" name="postcode" required>
+		<input type="text" name="county" id="administrative_area_level_2">
+		<h3>Postcode</h3>
+		<input type="text" name="postcode" id="postal_code" required>
 		<h3>Served Area(in miles)</h3>
 		<input type="text" name="served_area">
 		<p id="reCAPTCHAWarning">Please note that for the purposes of reCAPTCHA, data on hardware,software and your IP address will be collected and sent to Google

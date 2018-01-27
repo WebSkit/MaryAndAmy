@@ -96,7 +96,7 @@
 	    <h3>County</h3>
 	    <input name="county" id="administrative_area_level_2" value="<?php echo $county;?>" required></input>*
 	    <h3>Postcode</h3>
-	    <input id="postal_code" name = "postcode" value="<?php echo $postcode;?>" required></input>*
+	    <input name = "postcode" id="postal_code" value="<?php echo $postcode;?>" required></input>*
 
 		<p id="reCAPTCHAWarning">Please note that for the purposes of reCAPTCHA, data on hardware,software and your IP address will be collected and sent to Google
 		by creating an account, you agree to allow them to do this</p>
