@@ -36,7 +36,7 @@
             }
         }
 
-        function validateAddressLine1($addressLine1)
+        function validateAddressLine1($address_line1)
         {
             // $pattern = "/^[a-zA-Z ]*$/";
             // if (preg_match($pattern,$name)) {
@@ -49,7 +49,7 @@
             return true;
         }
 
-        function validateAddressLine2($addressLine2)
+        function validateAddressLine2($address_line2)
         {
             // $pattern = "/^[a-zA-Z ]*$/";
             // if (preg_match($pattern,$name)) {

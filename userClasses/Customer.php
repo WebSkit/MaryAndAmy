@@ -1,21 +1,21 @@
 <?php
-	require("userClasses/newUser.php");//newCustomers parent class
+	require("userClasses/User.php");//newCustomers parent class
 
-	class newCustomer extends newUser{
+	class Customer extends User{
 		var $surname;
 		var $email;
-		var $addressLine1;
-		var $addressLine2;
+		var $address_line1;
+		var $address_line2;
 		var $postcode;
 		var $county;
 
-		function __construct($name,$password,$surname,$email,$addressLine1,$addressLine2,$county,$postcode)
+		function __construct($name,$password,$surname,$email,$address_line1,$address_line2,$county,$postcode)
 		{
 			parent::__construct($name,$password);//calls parent constructor
 			$this->setSurname($surname);
 			$this->setEmail($email);
-			$this->setAddressLine1($addressLine1);
-			$this->setAddressLine2($addressLine2);
+			$this->setAddressLine1($address_line1);
+			$this->setAddressLine2($address_line2);
 			$this->setPostCode($postcode);
 			$this->setCounty($county);
 		}//end constructor
@@ -38,22 +38,22 @@
 			return $this->email;
 		}//getEmail
 
-		function setAddressLine1($addressLine1)
+		function setAddressLine1($address_line1)
 		{
-			$this->addressLine1=$addressLine1;
+			$this->address_line1=$address_line1;
 		}//setAddressLine1
 		function getAddressLine1()
 		{
-			return $this->addressLine1;
+			return $this->address_line1;
 		}//setAddressLine1
 
-		function setAddressLine2($addressLine2)
+		function setAddressLine2($address_line2)
 		{
-			$this->addressLine2=$addressLine2;
+			$this->address_line2=$address_line2;
 		}//setAddressLine2
 		function getAddressLine2()
 		{
-			return $this->addressLine2;
+			return $this->address_line2;
 		}//getAddressLine2
 
 		function setPostCode($postcode)

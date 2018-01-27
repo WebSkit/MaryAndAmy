@@ -1,28 +1,28 @@
 <?php
-require("userClasses/newUser.php");//newBakers parent class
+require("userClasses/User.php");//newBakers parent class
 
-	class newBaker extends newUser{
+	class Baker extends User{
 		var $surname;
 		var $email;
-		var $addressLine1;
-		var $addressLine2;
+		var $address_line1;
+		var $address_line2;
 		var $postcode;
 		var $country;
 		var $pictureCount;
 		var $isApproved;
-		var $servedArea;
+		var $served_area;
 
-		function __construct($companyName,$password,$email,$addressLine1,$addressLine2,$postcode,$county,$pictureCount,$isApproved,$servedArea)
+		function __construct($company_name,$password,$email,$address_line1,$address_line2,$postcode,$county,$pictureCount,$isApproved,$served_area)
 		{
-			parent::__construct($companyName,$password);//calls parent constructor
+			parent::__construct($company_name,$password);//calls parent constructor
 			$this->setEmail($email);
-			$this->setAddressLine1($addressLine1);
-			$this->setAddressLine2($addressLine2);
+			$this->setAddressLine1($address_line1);
+			$this->setAddressLine2($address_line2);
 			$this->setPostCode($postcode);
 			$this->setCounty($county);
 			$this->setPictureCount($pictureCount);
 			$this->setIsApproved($isApproved);
-			$this->setServedArea($servedArea);
+			$this->setServedArea($served_area);
 		}//end constructor
 
 
@@ -36,22 +36,22 @@ require("userClasses/newUser.php");//newBakers parent class
 			return $this->email;
 		}//getEmail
 
-		function setAddressLine1($addressLine1)
+		function setAddressLine1($address_line1)
 		{
-			$this->addressLine1=$addressLine1;
+			$this->address_line1=$address_line1;
 		}//setAddressLine1
 		function getAddressLine1()
 		{
-			return $this->addressLine1;
+			return $this->address_line1;
 		}//setAddressLine1
 
-		function setAddressLine2($addressLine2)
+		function setAddressLine2($address_line2)
 		{
-			$this->addressLine2=$addressLine2;
+			$this->address_line2=$address_line2;
 		}//setAddressLine2
 		function getAddressLine2()
 		{
-			return $this->addressLine2;
+			return $this->address_line2;
 		}//getAddressLine2
 
 		function setPostCode($postcode)
@@ -90,13 +90,13 @@ require("userClasses/newUser.php");//newBakers parent class
 			return $this->isApproved;
 		}//getIsApproved
 
-		function setServedArea($servedArea)
+		function setServedArea($served_area)
 		{
-			$this->servedArea=$servedArea;
+			$this->served_area=$served_area;
 		}//setServedArea
 		function getServedArea()
 		{
-			return $this->servedArea;
+			return $this->served_area;
 		}//getServedArea
 
 	}//end newBaker

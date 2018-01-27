@@ -2,16 +2,16 @@
 	session_start();
 	$_SESSION["baker_id"]=1;//this is only testing will need to change it later
 	require('../MaryAndAmy/databaseDetails.php');
-	require("../MaryAndAmy/userClasses/newBaker.php");//go up a level, then find the file
-	class bakerDAO
+	require("../MaryAndAmy/userClasses/Baker.php");//go up a level, then find the file
+	class BakerDAO
 	{
-		var $serverName;
+		var $server_name;
 		var $username;
 		var $password;
 		var $database;
 		function __construct()
 		{
-			$this->serverName=$GLOBALS["server"];
+			$this->server_name=$GLOBALS["server"];
 			$this->username=$GLOBALS["usernameS"];
 			$this->password=$GLOBALS["passwordS"];
 			$this->database=$GLOBALS["database"];
@@ -19,7 +19,7 @@
 
 		function getConnection()
 		{
-			$connection = new mysqli($this->serverName, $this->username, $this->password, $this->database);
+			$connection = new mysqli($this->server_name, $this->username, $this->password, $this->database);
 			if($connection->connect_error)
 			{
 				die("Failed to establish a connection, please try again later");
@@ -27,23 +27,23 @@
 			return $connection;
 		}//end getConnection
 
-		function createBaker($newBakerObject)
+		function createBaker($new_baker)
 		{
 			$connection=$this->getConnection();
-			$prepStatement=$connection->prepare("INSERT INTO bakers (companyName,password,email,addressLine1,addressLine2,postcode,county,pictureCount,isApproved,servedArea) VALUES(?,?,?,?,?,?,?,?,?,?)");
+			$prep_statement=$connection->prepare("INSERT INTO bakers (company_name,password,email,address_line1,address_line2,postcode,county,picture_count,is_approved,served_area) VALUES(?,?,?,?,?,?,?,?,?,?)");
 
-			$companyName=$newBakerObject->getName();
-			$passwordUser=$newBakerObject->getPassword();
-			$email=$newBakerObject->getEmail();
-			$addressLine1=$newBakerObject->getAddressLine1();
-			$addressLine2=$newBakerObject->getAddressLine2();
-			$postcode=$newBakerObject->getPostCode();
-			$county=$newBakerObject->getCounty();
-			$pictureCount=$newBakerObject->getPictureCount();
-			$isApproved=$newBakerObject->getIsApproved();
-			$servedArea=$newBakerObject->getServedArea();
-			$prepStatement->bind_param("sssssssss",$companyName,$passwordUser,$email,$addressLine1,$addressLine2,$postcode,$county,$pictureCount,$isApproved,$servedArea);
-			if($prepStatement->execute())
+			$company_name=$new_baker->getName();
+			$password=$new_baker->getPassword();
+			$email=$new_baker->getEmail();
+			$address_line1=$new_baker->getAddressLine1();
+			$address_line2=$new_baker->getAddressLine2();
+			$county=$new_baker->getCounty();
+			$postcode=$new_baker->getPostCode();
+			$picture_count=$new_baker->getPictureCount();
+			$is_approved=$new_baker->getIsApproved();
+			$served_area=$new_baker->getServedArea();
+			$prep_statement->bind_param("sssssssss",$company_name,$password,$email,$address_line1,$address_line2,$postcode,$county,$picture_count,$is_approved,$served_area);
+			if($prep_statement->execute())
 			{
 				return true;
 			}//if query was a success
@@ -52,25 +52,25 @@
 				return false;
 			}//if query was a failure
 
-		function updateBaker($newBakerObject)
+		function updateBaker($new_baker)
 		{
 			$connection=$this->getConnection();
-			$prepStatement=$connection->prepare("UPDATE bakers SET companyName=?,password=?,email=?,addressLine1=?,addressLine2=?,postcode=?,county=?,pictureCount=?,isApproved=?,servedArea=? WHERE baker_id=?;");
+			$prep_statement=$connection->prepare("UPDATE bakers SET company_name=?,password=?,email=?,address_line1=?,address_line2=?,postcode=?,county=?,picture_count=?,is_approved=?,served_area=? WHERE baker_id=?;");
 
 			$id=$_SESSION["baker_id"];
-			$companyName=$newBakerObject->getName();
-			$passwordUser=$newBakerObject->getPassword();
-			$email=$newBakerObject->getEmail();
-			$addressLine1=$newBakerObject->getAddressLine1();
-			$addressLine2=$newBakerObject->getAddressLine2();
-			$postcode=$newBakerObject->getPostCode();
-			$county=$newBakerObject->getCounty();
-			$pictureCount=$newBakerObject->getPictureCount();
-			$isApproved=$newBakerObject->getIsApproved();
-			$servedArea=$newBakerObject->getServedArea();
+			$company_name=$new_baker->getName();
+			$password=$new_baker->getPassword();
+			$email=$new_baker->getEmail();
+			$address_line1=$new_baker->getAddressLine1();
+			$address_line2=$new_baker->getAddressLine2();
+			$postcode=$new_baker->getPostCode();
+			$county=$new_baker->getCounty();
+			$picture_count=$new_baker->getPictureCount();
+			$is_approved=$new_baker->getIsApproved();
+			$served_area=$new_baker->getServedArea();
 
-			$prepStatement->bind_param("sssssssssss",$companyName,$passwordUser,$email,$addressLine1,$addressLine2,$postcode,$county,$pictureCount,$isApproved,$servedArea,$id);
-			if($prepStatement->execute())
+			$prep_statement->bind_param("sssssssssss",$company_name,$password,$email,$address_line1,$address_line2,$postcode,$county,$picture_count,$is_approved,$served_area,$id);
+			if($prep_statement->execute())
 			{
 				return true;
 			}//if query was a success
