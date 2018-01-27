@@ -100,7 +100,7 @@
 
 		<p id="reCAPTCHAWarning">Please note that for the purposes of reCAPTCHA, data on hardware,software and your IP address will be collected and sent to Google
 		by creating an account, you agree to allow them to do this</p>
-		<div class="g-recaptcha" data-sitekey="<?php echo $siteKey ?>"></div>
+		<div class="g-recaptcha" data-sitekey="<?php echo $SITE_KEY ?>"></div>
 
 		<input type="submit" value="Create Account" name="customer_submit">
 

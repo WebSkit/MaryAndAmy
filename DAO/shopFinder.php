@@ -6,7 +6,7 @@
 		var $api_key;
 		function __construct()
 		{
-			$this->api_key=$GLOBALS["mapsAPIKey"];
+			$this->api_key=$GLOBALS["MAPS_API_KEY"];
 		}//constructor
 		function getConnection()
 		{
