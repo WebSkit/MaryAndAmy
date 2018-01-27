@@ -6,19 +6,19 @@ require("userClasses/newUser.php");//newBakers parent class
 		var $email;
 		var $addressLine1;
 		var $addressLine2;
-		var $postCode;
+		var $postcode;
 		var $country;
 		var $pictureCount;
 		var $isApproved;
 		var $servedArea;
 
-		function __construct($companyName,$password,$email,$addressLine1,$addressLine2,$postCode,$county,$pictureCount,$isApproved,$servedArea)
+		function __construct($companyName,$password,$email,$addressLine1,$addressLine2,$postcode,$county,$pictureCount,$isApproved,$servedArea)
 		{
 			parent::__construct($companyName,$password);//calls parent constructor
 			$this->setEmail($email);
 			$this->setAddressLine1($addressLine1);
 			$this->setAddressLine2($addressLine2);
-			$this->setPostCode($postCode);
+			$this->setPostCode($postcode);
 			$this->setCounty($county);
 			$this->setPictureCount($pictureCount);
 			$this->setIsApproved($isApproved);
@@ -54,13 +54,13 @@ require("userClasses/newUser.php");//newBakers parent class
 			return $this->addressLine2;
 		}//getAddressLine2
 
-		function setPostCode($postCode)
+		function setPostCode($postcode)
 		{
-			$this->postCode=$postCode;
+			$this->postcode=$postcode;
 		}//setPostCode
 		function getPostCode()
 		{
-			return $this->postCode;
+			return $this->postcode;
 		}//getPostCode
 
 		function setCounty($county)

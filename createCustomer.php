@@ -34,7 +34,7 @@
 			$postcode = test_input($_POST["postcode"]);
 
 			if($validation -> validateAll($first_name, $surname, $email, $address_line1, $address_line2, $county, $postcode) && $password == $password_reenter) {
-				$tempUser=new newCustomer($first_name,$password,$surname,$email,$address_line1,$address_line2,$postcode,$county);
+				$tempUser=new newCustomer($first_name,$password,$surname,$email,$address_line1,$address_line2,$county,$postcode);
 				//var_dump($tempUser);
 				$tempDAO=new customerDAO();
 				$accountCreated=$tempDAO->createCustomer($tempUser);

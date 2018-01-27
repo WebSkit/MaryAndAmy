@@ -12,7 +12,7 @@
 		//param2=true means that it is returning an associative array
 		if($arrayResult["success"]==true)
 		{
-			$tempBaker=new newBaker($_POST["companyName"],$_POST["password"],$_POST["email"],$_POST["addressLine1"],$_POST["addressLine2"],$_POST["postCode"],$_POST["county"],5,false,$_POST["servedArea"]);
+			$tempBaker=new newBaker($_POST["companyName"],$_POST["password"],$_POST["email"],$_POST["addressLine1"],$_POST["addressLine2"],$_POST["postcode"],$_POST["county"],5,false,$_POST["servedArea"]);
 			//var_dump($tempUser);
 			$tempDAO=new bakerDAO();
 			$accountCreated=$tempDAO->createBaker($tempBaker);
@@ -50,17 +50,13 @@
 		<h3>Password</h3>
 		<input type="password" name="password" required>
 		<h3>Email</h3>
-<<<<<<< HEAD
-		<input type="email" name="email" required>
-=======
 		<input type="text" name="email" required>
->>>>>>> 60a8ea6a7fe7f29614909184801ee3c5a073a0fe
 		<h3>address Line 1</h3>
 		<input type="text" name="addressLine1" required>
 		<h3>address Line 2</h3>
 		<input type="text" name="addressLine2">
 		<h3>Post Code</h3>
-		<input type="text" name="postCode" required>
+		<input type="text" name="postcode" required>
 		<h3>County</h3><!--feel free to remove country if it is irrelevant-->
 		<input type="text" name="county">
 		<h3>Served Area(in miles)</h3>

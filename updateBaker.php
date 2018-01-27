@@ -4,7 +4,7 @@
 	if(isset($_POST["customerSubmit"]))
 	{
 
-		$tempBaker=new newBaker($_POST["companyName"],$_POST["password"],$_POST["email"],$_POST["addressLine1"],$_POST["addressLine2"],$_POST["postCode"],$_POST["county"],5,true);
+		$tempBaker=new newBaker($_POST["companyName"],$_POST["password"],$_POST["email"],$_POST["addressLine1"],$_POST["addressLine2"],$_POST["postcode"],$_POST["county"],5,true);
 		//var_dump($tempUser);
 		$tempDAO=new bakerDAO();
 		$accountCreated=$tempDAO->updateBaker($tempBaker);
@@ -33,7 +33,7 @@
 		<h3>address Line 2</h3>
 		<input type="text" name="addressLine2">
 		<h3>Post Code</h3>
-		<input type="text" name="postCode">
+		<input type="text" name="postcode">
 		<h3>County</h3><!--feel free to remove country if it is irrelevant-->
 		<input type="text" name="county">
 		<p id="reCAPTCHAWarning">Please note that for the purposes of reCAPTCHA, data on hardware,software and your IP address will be collected and sent to Google

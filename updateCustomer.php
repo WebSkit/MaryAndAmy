@@ -2,7 +2,7 @@
 	require("userDAOClasses/customerDAO.php");
 	if(isset($_POST["customerSubmit"]))
 	{
-		$tempUser=new newCustomer($_POST["customerName"],$_POST["password"],$_POST["surname"],$_POST["email"],$_POST["addressLine1"],$_POST["addressLine2"],$_POST["postCode"],$_POST["country"]);
+		$tempUser=new newCustomer($_POST["customerName"],$_POST["password"],$_POST["surname"],$_POST["email"],$_POST["addressLine1"],$_POST["addressLine2"],$_POST["postcode"],$_POST["country"]);
 		//var_dump($tempUser);
 		$tempDAO=new customerDAO();
 		$accountCreated=$tempDAO->createCustomer($tempUser);
@@ -32,7 +32,7 @@
 		<h3>address Line 2</h3>
 		<input type="text" name="addressLine2">
 		<h3>Post Code</h3>
-		<input type="text" name="postCode">
+		<input type="text" name="postcode">
 		<h3>County</h3>
 		<input type="text" name="country">
 

@@ -30,7 +30,7 @@
 		function createCustomer($newCustomerObject)
 		{
 			$connection=$this->getConnection();
-			$prepStatement=$connection->prepare("INSERT INTO customer (name,password,surname,email,addressLine1,addressLine2,postCode,county) VALUES(?,?,?,?,?,?,?,?)");
+			$prepStatement=$connection->prepare("INSERT INTO customer (name,password,surname,email,addressLine1,addressLine2,postcode,county) VALUES(?,?,?,?,?,?,?,?)");
 
 			$name=$newCustomerObject->getName();
 			$passwordUser=$newCustomerObject->getPassword();
@@ -38,10 +38,10 @@
 			$email=$newCustomerObject->getEmail();
 			$addressLine1=$newCustomerObject->getAddressLine1();
 			$addressLine2=$newCustomerObject->getAddressLine2();
-			$postCode=$newCustomerObject->getPostCode();
+			$postcode=$newCustomerObject->getPostCode();
 			$county=$newCustomerObject->getCounty();
 
-			$prepStatement->bind_param("ssssssss",$name,$passwordUser,$surname,$email,$addressLine1,$addressLine2,$postCode,$county);
+			$prepStatement->bind_param("ssssssss",$name,$passwordUser,$surname,$email,$addressLine1,$addressLine2,$postcode,$county);
 			if($prepStatement->execute())
 			{
 				return true;
@@ -55,7 +55,7 @@
 		function updateCustomer($newCustomerObject)
 		{
 			$connection=$this->getConnection();
-			$prepStatement=$connection->prepare("UPDATE customer SET name=?,surname=?,password=?,email=?,addressLine1=?,addressLine2=?,postCode=?,county=? WHERE customerId=?;");
+			$prepStatement=$connection->prepare("UPDATE customer SET name=?,surname=?,password=?,email=?,addressLine1=?,addressLine2=?,postcode=?,county=? WHERE customerId=?;");
 
 			$id=$_SESSION["customerId"];
 			$name=$newCustomerObject->getName();
@@ -64,9 +64,9 @@
 			$email=$newCustomerObject->getEmail();
 			$addressLine1=$newCustomerObject->getAddressLine1();
 			$addressLine2=$newCustomerObject->getAddressLine2();
-			$postCode=$newCustomerObject->getPostCode();
+			$postcode=$newCustomerObject->getPostCode();
 			$county=$newCustomerObject->getCounty();
-			$prepStatement->bind_param("sssssssss",$name,$surname,$passwordUser,$email,$addressLine1,$addressLine2,$postCode,$county,$id);
+			$prepStatement->bind_param("sssssssss",$name,$surname,$passwordUser,$email,$addressLine1,$addressLine2,$postcode,$county,$id);
 			if($prepStatement->execute())
 			{
 				return true;

@@ -1,7 +1,7 @@
 <?php
 session_start();
 $conn = mysqli_connect("localhost","root","","maryandamy");
-	
+
 $message="Version 1";
 if(!empty($_POST["login"])) {
 	$result = mysqli_query($conn,"SELECT * FROM customer WHERE email='" . $_POST["email"] . "' and password = '". $_POST["password"]."'");
@@ -15,27 +15,27 @@ if(!empty($_POST["login"])) {
 if(!empty($_POST["logout"])) {
 	$_SESSION["customerId"] = "BYE";
 	session_destroy();
-    header("Refresh:0"); 
+    header("Refresh:0");
 }
 ?>
 <html>
 <head>
 <title>User Login</title>
 <style>
-#frmLogin { 
+#frmLogin {
 	padding: 20px 60px;
 	background: #B6E0FF;
 	color: #555;
 	display: inline-block;
-	border-radius: 4px; 
+	border-radius: 4px;
 }
-.field-group { 
-	margin:15px 0px; 
+.field-group {
+	margin:15px 0px;
 }
 .input-field {
 	padding: 8px;width: 200px;
 	border: #A3C3E7 1px solid;
-	border-radius: 4px; 
+	border-radius: 4px;
 }
 .form-submit-button {
 	background: #65C370;
@@ -43,7 +43,7 @@ if(!empty($_POST["logout"])) {
 	padding: 8px 20px;
 	border-radius: 4px;
 	color: #FFF;
-	text-transform: uppercase; 
+	text-transform: uppercase;
 }
 .member-dashboard {
 	padding: 40px;
@@ -51,7 +51,7 @@ if(!empty($_POST["logout"])) {
 	color: #555;
 	border-radius: 4px;
 	display: inline-block;
-	text-align:center; 
+	text-align:center;
 }
 .logout-button {
 	color: #09F;
@@ -75,7 +75,7 @@ if(!empty($_POST["logout"])) {
 <div style="display:block;margin:0px auto;">
 <?php if(empty($_SESSION["customerId"])) { ?>
 <form action="" method="post" id="frmLogin">
-	<div class="error-message"><?php if(isset($message)) { echo $message; } ?></div>	
+	<div class="error-message"><?php if(isset($message)) { echo $message; } ?></div>
 	<div class="field-group">
 		<div><label for="login">Username</label></div>
 		<div><input name="email" type="text" class="input-field"></div>
@@ -86,10 +86,10 @@ if(!empty($_POST["logout"])) {
 	</div>
 	<div class="field-group">
 		<div><input type="submit" name="login" value="Login" class="form-submit-button"></div>
-	</div>       
+	</div>
 </form>
-<?php 
-} else { 
+<?php
+} else {
 $result = mysqlI_query($conn,"SELECT * FROM customer WHERE customerId='" . $_SESSION["customerId"] . "'");
 $row  = mysqli_fetch_array($result);
 ?>
