@@ -1,4 +1,4 @@
 <?php
-	$mapsAPIKey="AIzaSyCcMv6vKb69ZxDbGFe0skOfPpQ0adhR4s8";
-	
+	$MAPS_API_KEY="AIzaSyCcMv6vKb69ZxDbGFe0skOfPpQ0adhR4s8";
+
 ?>
