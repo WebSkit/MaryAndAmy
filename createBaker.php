@@ -1,13 +1,13 @@
 <?php
 	require("userDAOClasses/bakerDAO.php");
 	require("secretKey.php");
-	if(isset($_POST["customer_submit"]))
+	if(isset($_POST["baker_submit"]))
 	{
-		$secret_key=$secret;//the reCAPTCHA secret key
+		$secret_key=$SECRET;//the reCAPTCHA secret key
 		$response=$_POST["g-recaptcha-response"];//required reCAPTCHA response(aka sends the user data to google)
 		$ip=$_SERVER['REMOTE_ADDR'];
 		//file_get_contents, in this case, sends a request to google and gets the JSON response back in the form of a string
-		$url=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$response."&remoteip=".$ip);//the data is sent to this google page
+		$url=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$SECRET_KEY."&response=".$response."&remoteip=".$ip);//the data is sent to this google page
 		$array_result=json_decode($url,true);//a JSON object was returned, converts to an array
 		//param2=true means that it is returning an associative array
 		if($array_result["success"]==true)
@@ -43,7 +43,7 @@
 </head>
 
 <body>
-	<form method="post" id="createBakerForm">
+	<form method="post" id="new_baker_form">
 		<h3>Company Name</h3>
 		<input type="text" name="company_name" required>
 
@@ -65,7 +65,7 @@
 		by creating an account, you agree to allow them to do this</p>
 		<div class="g-recaptcha" data-sitekey="<?php echo $siteKey ?>"></div>
 
-		<input type="submit" value="Create Account" name="customer_submit">
+		<input type="submit" value="Create Account" name="baker_submit">
 
 	</form><!--end createCustomerForm-->
 </body>
