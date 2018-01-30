@@ -65,26 +65,54 @@
 			{
 				return false;
 			}//if query was a failure
-
-		function updateBaker($new_baker)
+		}//end createCustomer
+		
+		function updateBaker($newBakerObject)
 		{
 			$connection=$this->getConnection();
-			$prep_statement=$connection->prepare("UPDATE bakers SET company_name=?,password=?,email=?,address_line1=?,address_line2=?,postcode=?,county=?,picture_count=?,is_approved=?,served_area=? WHERE baker_id=?;");
-
-			$id=$_SESSION["baker_id"];
-			$company_name=$new_baker->getName();
-			$password=$new_baker->getPassword();
-			$email=$new_baker->getEmail();
-			$address_line1=$new_baker->getAddressLine1();
-			$address_line2=$new_baker->getAddressLine2();
-			$postcode=$new_baker->getPostCode();
-			$county=$new_baker->getCounty();
-			$picture_count=$new_baker->getPictureCount();
-			$is_approved=$new_baker->getIsApproved();
-			$served_area=$new_baker->getServedArea();
-
-			$prep_statement->bind_param("sssssssssss",$company_name,$password,$email,$address_line1,$address_line2,$postcode,$county,$picture_count,$is_approved,$served_area,$id);
-			if($prep_statement->execute())
+			$prepStatement=$connection->prepare("UPDATE bakers SET companyName=?,password=?, email=?,addressLine1=?,addressLine2=?,postCode=?,county=?,	pictureCount=?,isApproved=?,servedArea=?, logo=?, website=?, shopPhoneNumber=?, buisnessType=?, minNoticeTime=?, adminName=?, adminEmail=?, contactName=?, contactEmail=?, facebookPage=? WHERE bakerId=?;");
+			
+			$id=$_SESSION["bakerId"];
+			$companyName=$newBakerObject->getName();
+			$passwordUser=$newBakerObject->getPassword();
+			$email=$newBakerObject->getEmail();
+			$addressLine1=$newBakerObject->getAddressLine1();
+			$addressLine2=$newBakerObject->getAddressLine2();
+			$postCode=$newBakerObject->getPostCode();
+			$county=$newBakerObject->getCounty();
+			$pictureCount=$newBakerObject->getPictureCount();
+			$isApproved=$newBakerObject->getIsApproved();
+			$servedArea=$newBakerObject->getServedArea();
+			
+			$logo=$newBakerObject->getLogo();
+			$website==$newBakerObject->getWebsite();
+			$shopPhoneNumber=$newBakerObject->getShopePhoneNumber();
+			$buisnessType=$newBakerObject->getBuisnessType();
+			$minNoticeTime=$newBakerObject->getMinNoticeTime();
+			$adminName=$newBakerObject->getAdminName();
+			$adminEmail=$newBakerObject->getAdminEmail();
+			$contactName=$newBakerObject->getContactName();
+			$contactEmail=$newBakerObject->getContactEmail();
+			$facebookPage==$newBakerObject->getFacebookPage();
+			
+			$prepStatement->bind_param("sssssssssssssssssssss",$companyName,$passwordUser,$email,$addressLine1,$addressLine2,$postCode,$county,$pictureCount,$isApproved,$servedArea,$logo,$website,$shopPhoneNumber,$buisnessType,$minNoticeTime,$adminName,$adminEmail,$contactName,$contactEmail,$facebookPage,$id);
+			if($prepStatement->execute())
+			{
+				return true;
+			}//if query was a success
+			else
+			{
+				return false;
+			}//if query was a failure	
+		}//end updateCustomer
+		
+		function deleteBaker($bakerNumber)
+		{
+			$connection=$this->getConnection();
+			$prepStatement=$connection->prepare("DELETE FROM bakers WHERE bakerId = ?;");
+			
+			$prepStatement->bind_param("s", $bakerNumber);
+			if($prepStatement->execute())
 			{
 				return true;
 			}//if query was a success
@@ -92,8 +120,23 @@
 			{
 				return false;
 			}//if query was a failure
-
-		}//end createCustomer
-		}//end createCustomer
+		}//end deleteBaker
+		
+		function selectBaker($type,$condition)
+		{
+			$connection=$this->getConnection();
+			$prepStatement=$connection->prepare("SELECT * FROM bakers WHERE ? = ?");
+			$prepStatement->bind_param("ss", $type,$condition);
+			$result=$prepStatement->execute();
+			if($prepStatement->execute())
+			{
+				return $result;
+			}//if query was a success
+			else
+			{
+				return false;
+			}//if query was a failure
+		}//end of selectBaker
+		
 	}//end customerDAO
 ?>
