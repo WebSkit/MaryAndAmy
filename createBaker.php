@@ -1,22 +1,22 @@
 <?php
 	require("userDAOClasses/bakerDAO.php");
 	require("secretKey.php");
-	if(isset($_POST["baker_submit"]))
+	if(isset($_POST["bakerSubmit"]))
 	{
-		$secret_key=$SECRET;//the reCAPTCHA secret key
+		$secretKey=$SECRET;//the reCAPTCHA secret key
 		$response=$_POST["g-recaptcha-response"];//required reCAPTCHA response(aka sends the user data to google)
 		$ip=$_SERVER['REMOTE_ADDR'];
 		//file_get_contents, in this case, sends a request to google and gets the JSON response back in the form of a string
-		$url=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secret_key."&response=".$response."&remoteip=".$ip);//the data is sent to this google page
-		$array_result=json_decode($url,true);//a JSON object was returned, converts to an array
+		$url=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$response."&remoteip=".$ip);//the data is sent to this google page
+		$arrayResult=json_decode($url,true);//a JSON object was returned, converts to an array
 		//param2=true means that it is returning an associative array
-		if($array_result["success"]==true)
+		if($arrayResult["success"]==true)
 		{
-			$temp_baker=new Baker($_POST["company_name"],$_POST["password"],$_POST["email"],$_POST["address_line1"],$_POST["address_line2"],$_POST["postcode"],$_POST["county"],5,false,$_POST["served_area"]);
+			$tempBaker=new Baker($_POST["companyName"],$_POST["password"],$_POST["email"],$_POST["addressLine1"],$_POST["addressLine2"],$_POST["county"],$_POST["postcode"],5,false,$_POST["servedArea"]);
 			//var_dump($tempUser);
-			$temp_dao=new bakerDAO();
-			$account_created=$temp_dao->createBaker($temp_baker);
-			if($account_created==true)
+			$tempDao=new bakerDAO();
+			$accountCreated=$tempDao->createBaker($tempBaker);
+			if($accountCreated==true)
 			{
 				echo "account created";
 			}
@@ -46,9 +46,9 @@
 </head>
 
 <body>
-	<form method="post" id="new_baker_form">
+	<form method="post" id="newBakerForm">
 		<h3>Company Name</h3>
-		<input type="text" name="company_name" required>
+		<input type="text" name="companyName" required>
 		<h3>Email</h3>
 		<input type="text" name="email" required>
 		<h3>Password</h3>
@@ -59,20 +59,20 @@
 				onFocus="geolocate()" type="text"></input>
 	    </div>
 		<h3>address Line 1</h3>
-		<input type="text" name="address_line1" id="route" required>
+		<input type="text" name="addressLine1" id="route" required>
 		<h3>address Line 2</h3>
-		<input type="text" name="address_line2" id="postal_town">
+		<input type="text" name="addressLine2" id="postal_town">
 		<h3>County</h3><!--feel free to remove country if it is irrelevant-->
 		<input type="text" name="county" id="administrative_area_level_2">
 		<h3>Postcode</h3>
 		<input type="text" name="postcode" id="postal_code" required>
 		<h3>Served Area(in miles)</h3>
-		<input type="text" name="served_area">
+		<input type="text" name="servedArea">
 		<p id="reCAPTCHAWarning">Please note that for the purposes of reCAPTCHA, data on hardware,software and your IP address will be collected and sent to Google
 		by creating an account, you agree to allow them to do this</p>
 		<div class="g-recaptcha" data-sitekey="<?php echo $SITE_KEY ?>"></div>
 
-		<input type="submit" value="Create Account" name="baker_submit">
+		<input type="submit" value="Create Account" name="bakerSubmit">
 
 	</form><!--end createCustomerForm-->
 </body>

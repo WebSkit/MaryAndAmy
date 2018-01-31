@@ -3,44 +3,44 @@
 	require("secretKey.php");
 	require("userClasses/validation.php");
 
-	function test_input($data) {
+	function testInput($data) {
 	  $data = trim($data);
 	  $data = stripslashes($data);
 	  $data = htmlspecialchars($data);
 	  return $data;
 	}
-	$first_name=$surname=$password=$email=$address_line1=$address_line2=$county=$postcode="";
-	if(isset($_POST["customer_submit"]))
+	$firstName=$surname=$password=$email=$addressLine1=$addressLine2=$county=$postcode="";
+	if(isset($_POST["customerSubmit"]))
 	{
-		$secret_key=$SECRET;//the reCAPTCHA secret key
+		$secretKey=$SECRET;//the reCAPTCHA secret key
 		$response=$_POST["g-recaptcha-response"];//required reCAPTCHA response(aka sends the user data to google)
 		$ip=$_SERVER['REMOTE_ADDR'];
-		$url=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secret_key."&response=".$response."&remoteip=".$ip);//the data is sent to this google page
+		$url=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$response."&remoteip=".$ip);//the data is sent to this google page
 		//file_get_contents, in this case, sends a request to google and gets the JSON response back in the form of a string
-		$array_result=json_decode($url,true);//a JSON object was returned, converts to an array
+		$arrayResult=json_decode($url,true);//a JSON object was returned, converts to an array
 		//param2=true means that it is returning an associative array
-		if($array_result["success"]==true)
+		if($arrayResult["success"]==true)
 		{
 			$validation = new Validation();
-			$account_created = false;
-			$first_name = test_input($_POST["customer_name"]);
-			$surname = test_input($_POST["surname"]);
-			$password = test_input($_POST["password"]);
-			$password_reenter = test_input($_POST["password_reenter"]);
-			$email = test_input($_POST["email"]);
-			$address_line1 = test_input($_POST["address_line1"]);
-			$address_line2 = test_input($_POST["address_line2"]);
-			$county = test_input($_POST["county"]);
-			$postcode = test_input($_POST["postcode"]);
+			$accountCreated = false;
+			$firstName = testInput($_POST["customerName"]);
+			$surname = testInput($_POST["surname"]);
+			$password = testInput($_POST["password"]);
+			$passwordReenter = testInput($_POST["passwordReenter"]);
+			$email = testInput($_POST["email"]);
+			$addressLine1 = testInput($_POST["addressLine1"]);
+			$addressLine2 = testInput($_POST["addressLine2"]);
+			$county = testInput($_POST["county"]);
+			$postcode = testInput($_POST["postcode"]);
 
-			if($validation -> validateAll($first_name, $surname, $email, $address_line1, $address_line2, $county, $postcode) && $password == $password_reenter) {
-				$temp_customer=new Customer($first_name,$password,$surname,$email,$address_line1,$address_line2,$county,$postcode);
+			if($validation -> validateAll($firstName, $surname, $email, $addressLine1, $addressLine2, $county, $postcode) && $password == $passwordReenter) {
+				$tempCustomer=new Customer($firstName,$password,$surname,$email,$addressLine1,$addressLine2,$county,$postcode);
 				//var_dump($temp_customer);
 				$tempDAO=new customerDAO();
-				$account_created=$tempDAO->createCustomer($temp_customer);
+				$accountCreated=$tempDAO->createCustomer($tempCustomer);
 			}
 
-			if($account_created==true)
+			if($accountCreated==true)
 			{
 				echo "account created";
 			}
@@ -71,17 +71,17 @@
 		$_SERVER["PHP_SELF"] allows error messages generated when submitting the form, such as not filling in a required field, to be displayed
 		on the same page.
 	-->
-	<form method="post" id="new_customer_form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+	<form method="post" id="newCustomerForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 		<h3>First Name</h3>
 		<!--value attribute will allow the values entered by user to remain in the fields in the event that the form has been submitted
 			but validation has failed-->
-		<input type="text" name="customer_name" value="<?php echo $first_name;?>" required>*
+		<input type="text" name="customerName" value="<?php echo $firstName;?>" required>*
 		<h3>Surname</h3>
 		<input type="text" name="surname" value="<?php echo $surname;?>" required>*
 		<h3>Password</h3>
 		<input type="password" name="password" required>*
 		<h3>Re-enter Password</h3>
-		<input type="password" name="password_reenter" required>*
+		<input type="password" name="passwordReenter" required>*
 		<h3>Email</h3>
 		<input type="text" name="email" value="<?php echo $email;?>" required>*
 		<br><br>
@@ -90,9 +90,9 @@
 				onFocus="geolocate()" type="text"></input>
 	    </div>
 	    <h3>Address Line 1</h3>
-	    <input name = "address_line1" id="route" value="<?php echo $address_line1;?>" required></input>*
+	    <input name = "addressLine1" id="route" value="<?php echo $addressLine1;?>" required></input>*
 	    <h3>City/Town</h3>
-	    <input name = "address_line2" id="postal_town" value="<?php echo $address_line2;?>" required></input>*
+	    <input name = "addressLine2" id="postal_town" value="<?php echo $addressLine2;?>" required></input>*
 	    <h3>County</h3>
 	    <input name="county" id="administrative_area_level_2" value="<?php echo $county;?>" required></input>*
 	    <h3>Postcode</h3>
@@ -102,7 +102,7 @@
 		by creating an account, you agree to allow them to do this</p>
 		<div class="g-recaptcha" data-sitekey="<?php echo $SITE_KEY ?>"></div>
 
-		<input type="submit" value="Create Account" name="customer_submit">
+		<input type="submit" value="Create Account" name="customerSubmit">
 
 	</form><!--end new_customer_form-->
 </body>

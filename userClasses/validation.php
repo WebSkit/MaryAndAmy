@@ -5,9 +5,9 @@
     class Validation
     {
         //$name_err=$email_err=$address_line1_err=$address_line2_err=$county_err=$postcode_err = "";
-        function validateAll($first_name, $surname, $email, $address_line1, $address_line2, $county, $postcode){
-            if($this -> validateName($surname) && $this->validateEmail($email) && $this->validateAddressLine1($address_line1) &&
-                $this->validateAddressLine2($address_line2) && $this->validateCounty($county) && $this->validatePostcode($postcode)) {
+        function validateAll($firstName, $surname, $email, $addressLine1, $addressLine2, $county, $postcode){
+            if($this -> validateName($surname) && $this->validateEmail($email) && $this->validateAddressLine1($addressLine1) &&
+                $this->validateAddressLine2($addressLine2) && $this->validateCounty($county) && $this->validatePostcode($postcode)) {
                 return true;
             } else {
                 return false;
@@ -36,7 +36,7 @@
             }
         }
 
-        function validateAddressLine1($address_line1)
+        function validateAddressLine1($addressLine1)
         {
             // $pattern = "/^[a-zA-Z ]*$/";
             // if (preg_match($pattern,$name)) {
@@ -49,7 +49,7 @@
             return true;
         }
 
-        function validateAddressLine2($address_line2)
+        function validateAddressLine2($addressLine2)
         {
             // $pattern = "/^[a-zA-Z ]*$/";
             // if (preg_match($pattern,$name)) {

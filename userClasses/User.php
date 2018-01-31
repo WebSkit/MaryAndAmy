@@ -25,6 +25,6 @@
 		{
 			return $this->password;
 		}
-	}//end newUserClass
+	}//end User class
 
 ?>

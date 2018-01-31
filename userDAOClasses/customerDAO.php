@@ -5,13 +5,13 @@
 	require("../MaryAndAmy/userClasses/Customer.php");//go up a level, then find the file
 	class customerDAO
 	{
-		var $server_name;
+		var $serverName;
 		var $username;
 		var $password;
 		var $database;
 		function __construct()
 		{
-			$this->server_name=$GLOBALS["server"];
+			$this->serverName=$GLOBALS["server"];
 			$this->username=$GLOBALS["usernameS"];
 			$this->password=$GLOBALS["passwordS"];
 			$this->database=$GLOBALS["database"];
@@ -19,7 +19,7 @@
 
 		function getConnection()
 		{
-			$connection = new mysqli($this->server_name, $this->username, $this->password, $this->database);
+			$connection = new mysqli($this->serverName, $this->username, $this->password, $this->database);
 			if($connection->connect_error)
 			{
 				die("Failed to establish a connection, please try again later");
@@ -27,22 +27,22 @@
 			return $connection;
 		}//end getConnection
 
-		function createCustomer($new_customer)
+		function createCustomer($newCustomer)
 		{
 			$connection=$this->getConnection();
-			$prep_statement=$connection->prepare("INSERT INTO customer (name,password,surname,email,address_line1,address_line2,postcode,county) VALUES(?,?,?,?,?,?,?,?)");
+			$prepStatement=$connection->prepare("INSERT INTO customer (name,password,surname,email,addressLine1,addressLine2,county,postcode) VALUES(?,?,?,?,?,?,?,?)");
 
-			$name=$new_customer->getName();
-			$password=$new_customer->getPassword();
-			$surname=$new_customer->getSurname();
-			$email=$new_customer->getEmail();
-			$address_line1=$new_customer->getAddressLine1();
-			$address_line2=$new_customer->getAddressLine2();
-			$postcode=$new_customer->getPostCode();
-			$county=$new_customer->getCounty();
-
-			$prep_statement->bind_param("ssssssss",$name,$password,$surname,$email,$address_line1,$address_line2,$postcode,$county);
-			if($prep_statement->execute())
+			$name=$newCustomer->getName();
+			$password=$newCustomer->getPassword();
+			$surname=$newCustomer->getSurname();
+			$email=$newCustomer->getEmail();
+			$address_line1=$newCustomer->getAddressLine1();
+			$address_line2=$newCustomer->getAddressLine2();
+			$county=$newCustomer->getCounty();
+			$postcode=$newCustomer->getPostCode();
+			
+			$prepStatement->bind_param("ssssssss",$name,$password,$surname,$email,$address_line1,$address_line2,$county,$postcode);
+			if($prepStatement->execute())
 			{
 				return true;
 			}//if query was a success
@@ -52,22 +52,22 @@
 			}//if query was a failure
 		}//end createCustomer
 
-		function updateCustomer($new_customer)
+		function updateCustomer($newCustomer)
 		{
 			$connection=$this->getConnection();
-			$prep_statement=$connection->prepare("UPDATE customer SET name=?,surname=?,password=?,email=?,address_line1=?,address_line2=?,postcode=?,county=? WHERE customerId=?;");
+			$prepStatement=$connection->prepare("UPDATE customer SET name=?,surname=?,password=?,email=?,address_line1=?,address_line2=?,postcode=?,county=? WHERE customerID=?;");
 
-			$id=$_SESSION["customer_id"];
-			$name=$new_customer->getName();
-			$password=$new_customer->getPassword();
-			$surname=$new_customer->getSurname();
-			$email=$new_customer->getEmail();
-			$address_line1=$new_customer->getAddressLine1();
-			$address_line2=$new_customer->getAddressLine2();
-			$postcode=$new_customer->getPostCode();
-			$county=$new_customer->getCounty();
-			$prep_statement->bind_param("sssssssss",$name,$surname,$password,$email,$address_line1,$address_line2,$postcode,$county,$id);
-			if($prep_statement->execute())
+			$id=$_SESSION["customerID"];
+			$name=$newCustomer->getName();
+			$password=$newCustomer->getPassword();
+			$surname=$newCustomer->getSurname();
+			$email=$newCustomer->getEmail();
+			$addressLine1=$newCustomer->getAddressLine1();
+			$addressLine2=$newCustomer->getAddressLine2();
+			$county=$newCustomer->getCounty();
+			$postcode=$newCustomer->getPostCode();
+			$prepStatement->bind_param("sssssssss",$name,$surname,$password,$email,$addressLine1,$addressLine2,$county,$postcode,$id);
+			if($prepStatement->execute())
 			{
 				return true;
 			}//if query was a success

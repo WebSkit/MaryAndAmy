@@ -31,9 +31,9 @@
 		function createAdmin($newAdminObject)
 		{
 			$connection=$this->getConnection();
-			$prepStatement=$connection->prepare("INSERT INTO admin (userName,password,email,phoneNumber) VALUES(?,?,?,?,)");
+			$prepStatement=$connection->prepare("INSERT INTO admin (username,password,email,phoneNumber) VALUES(?,?,?,?,)");
 
-			$userName=$newAdminObject->getName();
+			$username=$newAdminObject->getName();
 			$passwordUser=$newAdminObject->getPassword();
 			$email=$newAdminObject->getEmail();
 			$phoneNumber=$newAdminObject->getPhoneNumber();
@@ -53,10 +53,10 @@
 		function updateAdmin($newAdminObject)
 		{
 			$connection=$this->getConnection();
-			$prepStatement=$connection->prepare("UPDATE admin SET userName=?,password=?,email=?,phoneNumber=? WHERE adminId=?;");
+			$prepStatement=$connection->prepare("UPDATE admin SET username=?,password=?,email=?,phoneNumber=? WHERE adminID=?;");
 
-			$id=$_SESSION["adminId"];
-			$userName=$newAdminObject->getName();
+			$id=$_SESSION["adminID"];
+			$username=$newAdminObject->getName();
 			$passwordUser=$newAdminObject->getPassword();
 			$email=$newAdminObject->getEmail();
 			$phoneNumber=$newAdminObject->getPhoneNumber();

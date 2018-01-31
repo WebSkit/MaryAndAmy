@@ -7,13 +7,13 @@ if(!empty($_POST["login"])) {
 	$result = mysqli_query($conn,"SELECT * FROM customer WHERE email='" . $_POST["email"] . "' and password = '". $_POST["password"]."'");
 	$row  = mysqli_fetch_array($result);
 	if(is_array($row)) {
-	$_SESSION["customer_id"] = $row['customer_id'];
+	$_SESSION["customerId"] = $row['customerId'];
 	} else {
 	$message = "Invalid Username or Password!";
 	}
 }
 if(!empty($_POST["logout"])) {
-	$_SESSION["customer_id"] = "BYE";
+	$_SESSION["customerId"] = "BYE";
 	session_destroy();
     header("Refresh:0");
 }
@@ -90,10 +90,10 @@ if(!empty($_POST["logout"])) {
 </form>
 <?php
 } else {
-$result = mysqli_query($conn,"SELECT * FROM customer WHERE customer_id='" . $_SESSION["customer_id"] . "'");
+$result = mysqli_query($conn,"SELECT * FROM customer WHERE customerID='" . $_SESSION["customerID"] . "'");
 $row  = mysqli_fetch_array($result);
 ?>
-<form action="" method="post" id="logout_form">
+<form action="" method="post" id="logoutForm">
 <div class="member-dashboard">Welcome <?php echo ucwords($row['name']); ?>, You have successfully logged in!<br>
 Click to <input type="submit" name="logout" value="Logout" class="logout-button">.</div>
 </form>

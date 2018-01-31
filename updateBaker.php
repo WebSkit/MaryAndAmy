@@ -1,14 +1,14 @@
 <?php
 	require("userDAOClasses/bakerDAO.php");
 
-	if(isset($_POST["baker_submit"]))
+	if(isset($_POST["bakerSubmit"]))
 	{
 
-		$temp_baker=new Baker($_POST["company_name"],$_POST["password"],$_POST["email"],$_POST["address_line1"],$_POST["address_line2"],$_POST["postcode"],$_POST["county"],5,true);
+		$tempBaker=new Baker($_POST["companyName"],$_POST["password"],$_POST["email"],$_POST["addressLine1"],$_POST["addressLine2"],$_POST["county"],$_POST["postcode"],5,true);
 		//var_dump($tempUser);
-		$temp_dao=new bakerDAO();
-		$account_created=$temp_dao->updateBaker($temp_baker);
-		if($account_created==true)
+		$tempDao=new bakerDAO();
+		$accountCreated=$tempDao->updateBaker($tempBaker);
+		if($accountCreated==true)
 		{
 			echo "account has been updated";
 		}
@@ -21,17 +21,17 @@
 ?>
 
 <body>
-	<form method="post" id="update_baker_form">
+	<form method="post" id="updateBakerForm">
 		<h3>Company Name</h3>
-		<input type="text" name="company_name">
+		<input type="text" name="companyName">
 		<h3>Password</h3>
 		<input type="password" name="password">
 		<h3>Email</h3>
 		<input type="text" name="email">
 		<h3>address Line 1</h3>
-		<input type="text" name="address_line1">
+		<input type="text" name="addressLine1">
 		<h3>address Line 2</h3>
-		<input type="text" name="address_line2">
+		<input type="text" name="addressLine2">
 		<h3>County</h3><!--feel free to remove country if it is irrelevant-->
 		<input type="text" name="county">
 		<h3>Post Code</h3>
@@ -40,7 +40,7 @@
 		by creating an account, you agree to allow them to do this</p>
 		<div class="g-recaptcha" data-sitekey="<?php echo $siteKey ?>"></div>
 
-		<input type="submit" value="Create Account" name="baker_submit">
+		<input type="submit" value="Create Account" name="bakerSubmit">
 
 	</form><!--end createCustomerForm-->
 </body>
