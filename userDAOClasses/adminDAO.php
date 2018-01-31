@@ -1,10 +1,10 @@
 <?php
 	session_start();
 	$_SESSION["adminId"]=1;//this is only testing will need to change it later
-	
+
 	require("../MaryAndAmy/userDAOClasses/bakerDAO.php");
 	require('../MaryAndAmy/databaseDetails.php');
-	require("../MaryAndAmy/userClasses/newAdmin.php");//go up a level, then find the file
+	require("../MaryAndAmy/userClasses/Admin.php");//go up a level, then find the file
 	class adminDAO
 	{
 		var $serverName;
@@ -27,12 +27,12 @@
 			}//if there was a connection error
 			return $connection;
 		}//end getConnection
-		
+
 		function createAdmin($newAdminObject)
 		{
 			$connection=$this->getConnection();
 			$prepStatement=$connection->prepare("INSERT INTO admin (userName,password,email,phoneNumber) VALUES(?,?,?,?,)");
-			
+
 			$userName=$newAdminObject->getName();
 			$passwordUser=$newAdminObject->getPassword();
 			$email=$newAdminObject->getEmail();
@@ -47,20 +47,20 @@
 				return false;
 				//die("Something went wrong when creating your account, please try again later");
 			}//if query was a failure
-			
+
 		}//end createAdmin
-		
+
 		function updateAdmin($newAdminObject)
 		{
 			$connection=$this->getConnection();
 			$prepStatement=$connection->prepare("UPDATE admin SET userName=?,password=?,email=?,phoneNumber=? WHERE adminId=?;");
-			
+
 			$id=$_SESSION["adminId"];
 			$userName=$newAdminObject->getName();
 			$passwordUser=$newAdminObject->getPassword();
 			$email=$newAdminObject->getEmail();
 			$phoneNumber=$newAdminObject->getPhoneNumber();
-			
+
 			$prepStatement->bind_param("sssss",$userName,$passwordUser,$email,$phoneNumber,$id);
 			if($prepStatement->execute())
 			{
@@ -71,7 +71,7 @@
 				return false;
 				//die("Something went wrong when creating your account, please try again later");
 			}//if query was a failure
-			
+
 		}//end updateAdmin
 	}//end of adminDAO
 ?>
