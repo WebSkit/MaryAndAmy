@@ -1,7 +1,5 @@
 <?php
 	
-	//http://www.peachpit.com/articles/article.aspx?p=1677579&seqNum=3
-	//https://tutorialzine.com/2010/06/simple-ajax-commenting-system
 	
 	//need method for validating text area. >1000 char.
 	require("userDAOClasses/reviewDAO.php");
