@@ -30,18 +30,18 @@
 		function createCustomer($newCustomer)
 		{
 			$connection=$this->getConnection();
-			$prepStatement=$connection->prepare("INSERT INTO customer (name,password,surname,email,addressLine1,addressLine2,county,postcode) VALUES(?,?,?,?,?,?,?,?)");
+			$prepStatement=$connection->prepare("INSERT INTO customer (firstName,surname,password,email,addressLine1,addressLine2,county,postcode) VALUES(?,?,?,?,?,?,?,?)");
 
-			$name=$newCustomer->getName();
+			$firstName=$newCustomer->getName();
 			$password=$newCustomer->getPassword();
 			$surname=$newCustomer->getSurname();
 			$email=$newCustomer->getEmail();
-			$address_line1=$newCustomer->getAddressLine1();
-			$address_line2=$newCustomer->getAddressLine2();
+			$addressLine1=$newCustomer->getAddressLine1();
+			$addressLine2=$newCustomer->getAddressLine2();
 			$county=$newCustomer->getCounty();
 			$postcode=$newCustomer->getPostCode();
-			
-			$prepStatement->bind_param("ssssssss",$name,$password,$surname,$email,$address_line1,$address_line2,$county,$postcode);
+
+			$prepStatement->bind_param("ssssssss",$firstName,$surname,$password,$email,$addressLine1,$addressLine2,$county,$postcode);
 			if($prepStatement->execute())
 			{
 				return true;
@@ -55,10 +55,10 @@
 		function updateCustomer($newCustomer)
 		{
 			$connection=$this->getConnection();
-			$prepStatement=$connection->prepare("UPDATE customer SET name=?,surname=?,password=?,email=?,address_line1=?,address_line2=?,postcode=?,county=? WHERE customerID=?;");
+			$prepStatement=$connection->prepare("UPDATE customer SET firstName=?,surname=?,password=?,email=?,addressLine1=?,addressLine2=?,county=?,postcode=? WHERE customerID=?;");
 
 			$id=$_SESSION["customerID"];
-			$name=$newCustomer->getName();
+			$firstName=$newCustomer->getName();
 			$password=$newCustomer->getPassword();
 			$surname=$newCustomer->getSurname();
 			$email=$newCustomer->getEmail();
@@ -66,7 +66,7 @@
 			$addressLine2=$newCustomer->getAddressLine2();
 			$county=$newCustomer->getCounty();
 			$postcode=$newCustomer->getPostCode();
-			$prepStatement->bind_param("sssssssss",$name,$surname,$password,$email,$addressLine1,$addressLine2,$county,$postcode,$id);
+			$prepStatement->bind_param("sssssssss",$firstName,$surname,$password,$email,$addressLine1,$addressLine2,$county,$postcode,$id);
 			if($prepStatement->execute())
 			{
 				return true;
