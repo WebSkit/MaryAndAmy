@@ -30,13 +30,15 @@
 		function createBaker($newBaker)
 		{
 			$connection=$this->getConnection();
-			$prepStatement=$connection->prepare("INSERT INTO baker (companyName,password,addressLine1,addressLine2,county,postcode,pictureCount,isApproved,
+			$prepStatement=$connection->prepare("INSERT INTO bakers (companyName,password,addressLine1,addressLine2,county,postcode,pictureCount,isApproved,
 				servedArea,logo,website,shopPhoneNumber,businessType,minNoticeTime,adminName,adminEmail,contactName,contactEmail,facebookPage)
 			VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-
+			if($prepStatement==false)
+			{
+				die("something went wrong with the PREPARE method<br>".$connection->error);
+			}
 			$companyName=$newBaker->getName();
 			$password=$newBaker->getPassword();
-			$email=$newBaker->getEmail();
 			$addressLine1=$newBaker->getAddressLine1();
 			$addressLine2=$newBaker->getAddressLine2();
 			$county=$newBaker->getCounty();
@@ -65,7 +67,7 @@
 			{
 				return false;
 			}//if query was a failure
-		}//end createCustomer
+		}//end createBaker
 
 		function updateBaker($newBakerObject)
 		{
