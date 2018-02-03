@@ -2,7 +2,6 @@
 	require("userDAOClasses/customerDAO.php");
 	require("secretKey.php");
 	require("userClasses/validation.php");
-
 	function testInput($data) {
 	  $data = trim($data);
 	  $data = stripslashes($data);
@@ -12,7 +11,7 @@
 	$firstName=$surname=$password=$email=$addressLine1=$addressLine2=$county=$postcode="";
 	if(isset($_POST["customerSubmit"]))
 	{
-		$secretKey=$SECRET;//the reCAPTCHA secret key
+		$secretKey=$secret;//the reCAPTCHA secret key
 		$response=$_POST["g-recaptcha-response"];//required reCAPTCHA response(aka sends the user data to google)
 		$ip=$_SERVER['REMOTE_ADDR'];
 		$url=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$response."&remoteip=".$ip);//the data is sent to this google page
@@ -32,14 +31,12 @@
 			$addressLine2 = testInput($_POST["addressLine2"]);
 			$county = testInput($_POST["county"]);
 			$postcode = testInput($_POST["postcode"]);
-
 			if($validation -> validateAll($firstName, $surname, $email, $addressLine1, $addressLine2, $county, $postcode) && $password == $passwordReenter) {
 				$tempCustomer=new Customer($firstName,$password,$surname,$email,$addressLine1,$addressLine2,$county,$postcode);
 				//var_dump($temp_customer);
 				$tempDAO=new customerDAO();
 				$accountCreated=$tempDAO->createCustomer($tempCustomer);
 			}
-
 			if($accountCreated==true)
 			{
 				echo "account created";
@@ -53,9 +50,7 @@
 		{
 			echo "An error occured, please try again";
 		}//else if the reCAPTCHA was a failure(for the user)
-
 	}//if data was submitted successfully from the form
-
 ?>
 <head>
 	<script src='https://www.google.com/recaptcha/api.js'></script>
@@ -67,7 +62,6 @@
 <body>
 	<!--htmlspecialchars() converts special characters like '<' and '>' to HTML entities.(in this case &lt; and &gt;).
 		This prevents attackers from exploiting the code by injecting HTML or Javascript code (Cross-site Scripting attacks) in the form.
-
 		$_SERVER["PHP_SELF"] allows error messages generated when submitting the form, such as not filling in a required field, to be displayed
 		on the same page.
 	-->
@@ -100,7 +94,7 @@
 
 		<p id="reCAPTCHAWarning">Please note that for the purposes of reCAPTCHA, data on hardware,software and your IP address will be collected and sent to Google
 		by creating an account, you agree to allow them to do this</p>
-		<div class="g-recaptcha" data-sitekey="<?php echo $SITE_KEY ?>"></div>
+		<div class="g-recaptcha" data-sitekey="<?php echo $siteKey ?>"></div>
 
 		<input type="submit" value="Create Account" name="customerSubmit">
 
