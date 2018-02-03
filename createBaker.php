@@ -12,7 +12,7 @@
 		//param2=true means that it is returning an associative array
 		if($arrayResult["success"]==true)
 		{
-			$tempBaker=new Baker($_POST["companyName"],$_POST["password"],$_POST["addressLine1"],$_POST["addressLine2"],$_POST["county"],$_POST["postCode"],5,false,$_POST["servedArea"],null,null,$_POST["phoneNumber"],null,null,$_POST["adminName"],$_POST["adminEmail"],null,null,null);
+			$tempBaker=new Baker($_POST["companyName"],$_POST["password"],$_POST["addressLine1"],$_POST["addressLine2"],$_POST["county"],$_POST["postCode"],5,false,$_POST["servedArea"],null,null,$_POST["phoneNumber"],null,null,$_POST["adminName"],$_POST["adminEmail"],$_POST["contactName"],$_POST["contactEmail"],null);
 			//nulls exists either as they don't need to be 
 			//var_dump($tempUser);
 			$tempDAO=new bakerDAO();
@@ -56,6 +56,10 @@
 		<input type="text" name="adminEmail">
 		<h3>Admin Name</h3>
 		<input type="text" name="adminName">
+		<h3>Contact Email</h3>
+		<input type="text" name="contactEmail">
+		<h3>Contact Name</h3>
+		<input type="text" name="contactName">
 		<h3>address Line 1</h3>
 		<input type="text" name="addressLine1">
 		<h3>address Line 2</h3>
