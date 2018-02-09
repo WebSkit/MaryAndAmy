@@ -3,7 +3,7 @@
 	require("secretKey.php");
 	if(isset($_POST["bakerSubmit"]))
 	{
-		$secretKey=$secret;//the reCAPTCHA secret key
+		$secretKey=$SECRET;//the reCAPTCHA secret key
 		$response=$_POST["g-recaptcha-response"];//required reCAPTCHA response(aka sends the user data to google)
 		$ip=$_SERVER['REMOTE_ADDR'];
 		$url=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$response."&remoteip=".$ip);//the data is sent to this google page
@@ -13,7 +13,7 @@
 		if($arrayResult["success"]==true)
 		{
 			$tempBaker=new Baker($_POST["companyName"],$_POST["password"],$_POST["addressLine1"],$_POST["addressLine2"],$_POST["county"],$_POST["postCode"],5,false,$_POST["servedArea"],null,null,$_POST["phoneNumber"],null,null,$_POST["adminName"],$_POST["adminEmail"],$_POST["contactName"],$_POST["contactEmail"],null);
-			//nulls exists either as they don't need to be 
+			//nulls exists either as they don't need to be
 			//var_dump($tempUser);
 			$tempDAO=new bakerDAO();
 			$accountCreated=$tempDAO->createBaker($tempBaker);
@@ -30,11 +30,11 @@
 		{
 			echo "An error occured, please try again";
 		}//else if the reCAPTCHA was a failure(for the user)
-		
-		
-		
-		
-		
+
+
+
+
+
 
 	}//if data was submitted successfully from the form
 
@@ -49,7 +49,7 @@
 	<form method="post" id="createBakerForm">
 		<h3>Company Name</h3>
 		<input type="text" name="companyName">
-		
+
 		<h3>Password</h3>
 		<input type="password" name="password">
 		<h3>Admin Email</h3>
@@ -72,12 +72,12 @@
 		<input type="text" name="servedArea">
 		<h3>Phone Number</h3>
 		<input type="text" name="phoneNumber">
-		
+
 		<p id="reCAPTCHAWarning">Please note that for the purposes of reCAPTCHA, data on hardware,software and your IP address will be collected and sent to Google
 		by creating an account, you agree to allow them to do this</p>
-		<div class="g-recaptcha" data-sitekey="<?php echo $siteKey ?>"></div>
+		<div class="g-recaptcha" data-sitekey="<?php echo $SITE_KEY ?>"></div>
 
 		<input type="submit" value="Create Account" name="bakerSubmit">
-		
+
 	</form><!--end createCustomerForm-->
 </body>

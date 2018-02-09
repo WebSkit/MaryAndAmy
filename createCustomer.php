@@ -11,7 +11,7 @@
 	$firstName=$surname=$password=$email=$addressLine1=$addressLine2=$county=$postcode="";
 	if(isset($_POST["customerSubmit"]))
 	{
-		$secretKey=$secret;//the reCAPTCHA secret key
+		$secretKey=$SECRET;//the reCAPTCHA secret key
 		$response=$_POST["g-recaptcha-response"];//required reCAPTCHA response(aka sends the user data to google)
 		$ip=$_SERVER['REMOTE_ADDR'];
 		$url=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$response."&remoteip=".$ip);//the data is sent to this google page
@@ -77,12 +77,12 @@
 		<h3>Re-enter Password</h3>
 		<input type="password" name="passwordReenter" required>*
 		<h3>Email</h3>
-		<input type="text" name="email" value="<?php echo $email;?>" required>*
+		<input type="email" name="email" value="<?php echo $email;?>" required>*
 		<br><br>
 		<div id="locationField">
 	    	<input id="autocomplete" placeholder="Enter your address"
 				onFocus="geolocate()" type="text"></input>
-	    </div>
+		</div>
 	    <h3>Address Line 1</h3>
 	    <input name = "addressLine1" id="route" value="<?php echo $addressLine1;?>" required></input>*
 	    <h3>City/Town</h3>
@@ -94,7 +94,7 @@
 
 		<p id="reCAPTCHAWarning">Please note that for the purposes of reCAPTCHA, data on hardware,software and your IP address will be collected and sent to Google
 		by creating an account, you agree to allow them to do this</p>
-		<div class="g-recaptcha" data-sitekey="<?php echo $siteKey ?>"></div>
+		<div class="g-recaptcha" data-sitekey="<?php echo $SITE_KEY ?>"></div>
 
 		<input type="submit" value="Create Account" name="customerSubmit">
 
