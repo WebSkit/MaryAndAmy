@@ -30,7 +30,7 @@
 		function createBaker($newBaker)
 		{
 			$connection=$this->getConnection();
-			$prepStatement=$connection->prepare("INSERT INTO bakers (companyName,password,addressLine1,addressLine2,county,postcode,pictureCount,isApproved,
+			$prepStatement=$connection->prepare("INSERT INTO baker (companyName,password,addressLine1,addressLine2,county,postcode,pictureCount,isApproved,
 				servedArea,logo,website,shopPhoneNumber,businessType,minNoticeTime,adminName,adminEmail,contactName,contactEmail,facebookPage)
 			VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			if($prepStatement==false)
@@ -55,6 +55,7 @@
 			$adminEmail=$newBaker->getAdminEmail();
 			$contactName=$newBaker->getContactName();
 			$contactEmail=$newBaker->getContactEmail();
+			echo "CE: ".$contactEmail;
 			$facebookPage=$newBaker->getFacebookPage();
 
 			$prepStatement->bind_param("sssssssssssssssssss",$companyName,$password,$addressLine1,$addressLine2,$county,$postcode,$pictureCount,$isApproved,
@@ -65,6 +66,8 @@
 			}//if query was a success
 			else
 			{
+				echo("fail!!");
+				die("something went wrong".$connection->error);
 				return false;
 			}//if query was a failure
 		}//end createBaker
@@ -72,7 +75,7 @@
 		function updateBaker($newBakerObject)
 		{
 			$connection=$this->getConnection();
-			$prepStatement=$connection->prepare("UPDATE bakers SET companyName=?,password=?, email=?,addressLine1=?,addressLine2=?,county=?, postCode=?,pictureCount=?,isApproved=?,
+			$prepStatement=$connection->prepare("UPDATE baker SET companyName=?,password=?, email=?,addressLine1=?,addressLine2=?,county=?, postCode=?,pictureCount=?,isApproved=?,
 				servedArea=?, logo=?, website=?, shopPhoneNumber=?, businessType=?, minNoticeTime=?, adminName=?, adminEmail=?, contactName=?, contactEmail=?, facebookPage=?
 				WHERE bakerID=?;");
 
@@ -114,7 +117,7 @@
 		function deleteBaker($bakerNumber)
 		{
 			$connection=$this->getConnection();
-			$prepStatement=$connection->prepare("DELETE FROM bakers WHERE bakerID = ?;");
+			$prepStatement=$connection->prepare("DELETE FROM baker WHERE bakerID = ?;");
 
 			$prepStatement->bind_param("s", $bakerNumber);
 			if($prepStatement->execute())
@@ -130,7 +133,7 @@
 		function selectBaker($type,$condition)
 		{
 			$connection=$this->getConnection();
-			$prepStatement=$connection->prepare("SELECT * FROM bakers WHERE ? = ?");
+			$prepStatement=$connection->prepare("SELECT * FROM baker WHERE ? = ?");
 			$prepStatement->bind_param("ss", $type,$condition);
 			$result=$prepStatement->execute();
 			if($prepStatement->execute())

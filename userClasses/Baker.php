@@ -2,7 +2,6 @@
 require("userClasses/User.php");//newBakers parent class
 
 	class Baker extends User{
-		var $email;
 		var $addressLine1;
 		var $addressLine2;
 		var $county;
@@ -21,10 +20,9 @@ require("userClasses/User.php");//newBakers parent class
 		var $contactEmail;
 		var $facebookPage;
 
-		function __construct($companyName,$password,$email,$addressLine1,$addressLine2,$county,$postcode,$pictureCount,$isApproved,$servedArea)
+		function __construct($companyName,$password,$addressLine1,$addressLine2,$county,$postcode,$pictureCount,$isApproved,$servedArea,$logo,$website,$shopPhoneNumber,$businessType,$minNoticeTime,$adminName,$adminEmail,$contactName,$contactEmail,$facebookPage)
 		{
 			parent::__construct($companyName,$password);//calls parent constructor
-			$this->setEmail($email);
 			$this->setAddressLine1($addressLine1);
 			$this->setAddressLine2($addressLine2);
 			$this->setCounty($county);
@@ -32,18 +30,18 @@ require("userClasses/User.php");//newBakers parent class
 			$this->setPictureCount($pictureCount);
 			$this->setIsApproved($isApproved);
 			$this->setServedArea($servedArea);
+			$this->setLogo($logo);
+			$this->setWebsite($website);
+			$this->setShopPhoneNumber($shopPhoneNumber);
+			$this->setBusinessType($businessType);
+			$this->setMinNoticeTime($minNoticeTime);
+			$this->setAdminName($adminName);
+			$this->setAdminEmail($adminEmail);
+			$this->setContactName($contactName);
+			$this->setContactEmail($contactEmail);
+			$this->setFacebookPage($facebookPage);
+
 		}//end constructor
-
-
-
-		function setEmail($email)
-		{
-			$this->email=$email;
-		}//setEmail
-		function getEmail()
-		{
-			return $this->email;
-		}//getEmail
 
 		function setAddressLine1($addressLine1)
 		{
@@ -198,7 +196,6 @@ require("userClasses/User.php");//newBakers parent class
 		{
 			return $this->contactEmail;
 		}//getContactEmail
-
 
 		function setFacebookPage($facebookPage)
 		{
