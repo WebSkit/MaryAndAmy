@@ -145,6 +145,30 @@
 				return false;
 			}//if query was a failure
 		}//end of selectBaker
+		
+		function getBakerObject($id)
+		{
+			$connection=$this->getConnection();
+			$prepStatement=$connection->prepare("SELECT * FROM bakers WHERE bakerId = ?");
+			$prepStatement->bind_param("s", $id);
+			$result;//=$prepStatement->execute();
+			if($prepStatement->execute())
+			{
+				$result = $prepStatement->get_result();
+
+				$bakerObject;
+				while($row=$result->fetch_assoc())
+				{
+					$bakerObject=new Baker($row["companyName"],$row["password"],$row["addressLine1"],$row["addressLine2"],$row["county"],$row["postCode"],$row["pictureCount"],$row["isApproved"],$row["servedArea"],$row["logo"],$row["website"],$row["shopPhoneNumber"],$row["businessType"],$row["minNoticeTime"],$row["adminName"],$row["adminEmail"],$row["contactName"],$row["contactEmail"],$row["facebookPage"]);
+					return $bakerObject;
+				}
+				return $result;
+			}//if query was a success
+			else
+			{
+				return false;
+			}//if query was a failure
+		}//endGetBakerObject
 
 	}//end customerDAO
 ?>
