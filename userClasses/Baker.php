@@ -1,6 +1,5 @@
 <?php
 require("userClasses/User.php");//newBakers parent class
-
 	class Baker extends User{
 		var $addressLine1;
 		var $addressLine2;
@@ -12,15 +11,13 @@ require("userClasses/User.php");//newBakers parent class
 		var $logo;
 		var $website;
 		var $shopPhoneNumber;
-		var $businessType;
 		var $minNoticeTime;
 		var $adminName;
 		var $adminEmail;
 		var $contactName;
 		var $contactEmail;
 		var $facebookPage;
-
-		function __construct($companyName,$password,$addressLine1,$addressLine2,$county,$postcode,$pictureCount,$isApproved,$servedArea,$logo,$website,$shopPhoneNumber,$businessType,$minNoticeTime,$adminName,$adminEmail,$contactName,$contactEmail,$facebookPage)
+		function __construct($companyName,$password,$addressLine1,$addressLine2,$county,$postcode,$pictureCount,$isApproved,$servedArea,$logo,$website,$shopPhoneNumber,$minNoticeTime,$adminName,$adminEmail,$contactName,$contactEmail,$facebookPage)
 		{
 			parent::__construct($companyName,$password);//calls parent constructor
 			$this->setAddressLine1($addressLine1);
@@ -33,16 +30,13 @@ require("userClasses/User.php");//newBakers parent class
 			$this->setLogo($logo);
 			$this->setWebsite($website);
 			$this->setShopPhoneNumber($shopPhoneNumber);
-			$this->setBusinessType($businessType);
 			$this->setMinNoticeTime($minNoticeTime);
 			$this->setAdminName($adminName);
 			$this->setAdminEmail($adminEmail);
 			$this->setContactName($contactName);
 			$this->setContactEmail($contactEmail);
 			$this->setFacebookPage($facebookPage);
-
 		}//end constructor
-
 		function setAddressLine1($addressLine1)
 		{
 			$this->addressLine1=$addressLine1;
@@ -51,7 +45,6 @@ require("userClasses/User.php");//newBakers parent class
 		{
 			return $this->addressLine1;
 		}//setAddressLine1
-
 		function setAddressLine2($addressLine2)
 		{
 			$this->addressLine2=$addressLine2;
@@ -60,7 +53,6 @@ require("userClasses/User.php");//newBakers parent class
 		{
 			return $this->addressLine2;
 		}//getAddressLine2
-
 		function setCounty($county)
 		{
 			$this->county=$county;
@@ -69,7 +61,6 @@ require("userClasses/User.php");//newBakers parent class
 		{
 			return $this->county;
 		}//getCounty
-
 		function setPostCode($postcode)
 		{
 			$this->postcode=$postcode;
@@ -78,7 +69,6 @@ require("userClasses/User.php");//newBakers parent class
 		{
 			return $this->postcode;
 		}//getPostCode
-
 		function setPictureCount($pictureCount)
 		{
 			$this->pictureCount=$pictureCount;
@@ -87,7 +77,6 @@ require("userClasses/User.php");//newBakers parent class
 		{
 			return $this->pictureCount;
 		}//getPictureCount
-
 		function setIsApproved($isApproved)
 		{
 			$this->isApproved=$isApproved;
@@ -96,112 +85,90 @@ require("userClasses/User.php");//newBakers parent class
 		{
 			return $this->isApproved;
 		}//getIsApproved
-
 		function setServedArea($servedArea)
 		{
 			$this->servedArea=$servedArea;
 		}//setServedArea
-
 		function getServedArea()
 		{
 			return $this->servedArea;
 		}//getServedArea
-
 		function setLogo($logo)
 		{
 			$this->logo=$logo;
 		}//getLogo
-
 		function getLogo()
 		{
 			return $this->logo;
 		}//getLogo
-
 		function setWebsite($website)
 		{
 			$this->website=$website;
 		}//getWebsite
-
 		function getWebsite()
 		{
 			return $this->website;
 		}//getWebsite
-
 		function setShopPhoneNumber($shopPhoneNumber)
 		{
 			$this->shopPhoneNumber=$shopPhoneNumber;
 		}//getShopPhoneNumber
-
 		function getShopPhoneNumber()
 		{
 			return $this->shopPhoneNumber;
 		}//getShopPhoneNumber
-
 		function setBusinessType($businessType)
 		{
 			$this->businessType=$businessType;
 		}//getBusinessType
-
 		function getBusinessType()
 		{
 			return $this->businessType;
 		}//getBusinessType
-
 		function setMinNoticeTime($minNoticeTime)
 		{
 			$this->minNoticeTime=$minNoticeTime;
 		}//getMinNoticeTime
-
 		function getMinNoticeTime()
 		{
 			return $this->minNoticeTime;
 		}//getMinNoticeTime
-
 		function setAdminName($adminName)
 		{
 			$this->adminName=$adminName;
 		}//getAdminName
-
 		function getAdminName()
 		{
 			return $this->adminName;
 		}//getAdminName
-
 		function setAdminEmail($adminEmail)
 		{
 			$this->adminEmail=$adminEmail;
 		}//getAdminEmail
-
 		function getAdminEmail()
 		{
 			return $this->adminEmail;
 		}//getAdminEmail
-
 		function setContactName($contactName)
 		{
 			$this->contactName=$contactName;
 		}//getContactName
-
 		function getContactName()
 		{
 			return $this->contactName;
 		}//getContactName
-
 		function setContactEmail($contactEmail)
 		{
-			$this->contactName=$contactEmail;
+			$this->contactEmail=$contactEmail;
 		}//getContactEmail
-
 		function getContactEmail()
 		{
 			return $this->contactEmail;
 		}//getContactEmail
-
 		function setFacebookPage($facebookPage)
 		{
 			$this->facebookPage=$facebookPage;
 		}//getFacebookPage
-
 		function getFacebookPage()
 		{
 			return $this->facebookPage;
