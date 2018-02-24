@@ -32,7 +32,7 @@
 			$connection=$this->getConnection();
 			$prepStatement=$connection->prepare("INSERT INTO baker (companyName,password,addressLine1,addressLine2,county,postcode,pictureCount,isApproved,
 				servedArea,logo,website,shopPhoneNumber,minNoticeTime,adminName,adminEmail,contactName,contactEmail,facebookPage)
-			VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			if($prepStatement==false)
 			{
 				die("something went wrong with the PREPARE method<br>".$connection->error);
