@@ -31,7 +31,7 @@
 		{
 			$connection=$this->getConnection();
 			$prepStatement=$connection->prepare("INSERT INTO baker (companyName,password,addressLine1,addressLine2,county,postcode,pictureCount,isApproved,
-				servedArea,logo,website,shopPhoneNumber,businessType,minNoticeTime,adminName,adminEmail,contactName,contactEmail,facebookPage)
+				servedArea,logo,website,shopPhoneNumber,minNoticeTime,adminName,adminEmail,contactName,contactEmail,facebookPage)
 			VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			if($prepStatement==false)
 			{
@@ -49,7 +49,6 @@
 			$logo=$newBaker->getLogo();
 			$website=$newBaker->getWebsite();
 			$shopPhoneNumber=$newBaker->getShopPhoneNumber();
-			$businessType=$newBaker->getBusinessType();
 			$minNoticeTime=$newBaker->getMinNoticeTime();
 			$adminName=$newBaker->getAdminName();
 			$adminEmail=$newBaker->getAdminEmail();
@@ -58,8 +57,8 @@
 			echo "CE: ".$contactEmail;
 			$facebookPage=$newBaker->getFacebookPage();
 
-			$prepStatement->bind_param("sssssssssssssssssss",$companyName,$password,$addressLine1,$addressLine2,$county,$postcode,$pictureCount,$isApproved,
-				$servedArea,$logo,$website,$shopPhoneNumber,$businessType,$minNoticeTime,$adminName,$adminEmail,$contactName,$contactEmail,$facebookPage);
+			$prepStatement->bind_param("ssssssssssssssssss",$companyName,$password,$addressLine1,$addressLine2,$county,$postcode,$pictureCount,$isApproved,
+				$servedArea,$logo,$website,$shopPhoneNumber,$minNoticeTime,$adminName,$adminEmail,$contactName,$contactEmail,$facebookPage);
 			if($prepStatement->execute())
 			{
 				return true;
@@ -159,7 +158,7 @@
 				$bakerObject;
 				while($row=$result->fetch_assoc())
 				{
-					$bakerObject=new Baker($row["companyName"],$row["password"],$row["addressLine1"],$row["addressLine2"],$row["county"],$row["postCode"],$row["pictureCount"],$row["isApproved"],$row["servedArea"],$row["logo"],$row["website"],$row["shopPhoneNumber"],$row["businessType"],$row["minNoticeTime"],$row["adminName"],$row["adminEmail"],$row["contactName"],$row["contactEmail"],$row["facebookPage"]);
+					$bakerObject=new Baker($row["companyName"],$row["password"],$row["addressLine1"],$row["addressLine2"],$row["county"],$row["postCode"],$row["pictureCount"],$row["isApproved"],$row["servedArea"],$row["logo"],$row["website"],$row["shopPhoneNumber"],$row["minNoticeTime"],$row["adminName"],$row["adminEmail"],$row["contactName"],$row["contactEmail"],$row["facebookPage"]);
 					return $bakerObject;
 				}
 				return $result;
