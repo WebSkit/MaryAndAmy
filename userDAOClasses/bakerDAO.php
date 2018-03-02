@@ -54,7 +54,6 @@
 			$adminEmail=$newBaker->getAdminEmail();
 			$contactName=$newBaker->getContactName();
 			$contactEmail=$newBaker->getContactEmail();
-			echo "CE: ".$contactEmail;
 			$facebookPage=$newBaker->getFacebookPage();
 
 			$prepStatement->bind_param("ssssssssssssssssss",$companyName,$password,$addressLine1,$addressLine2,$county,$postcode,$pictureCount,$isApproved,
@@ -65,7 +64,6 @@
 			}//if query was a success
 			else
 			{
-				echo("fail!!");
 				die("something went wrong".$connection->error);
 				return false;
 			}//if query was a failure
