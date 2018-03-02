@@ -144,7 +144,7 @@
 				return false;
 			}//if query was a failure
 		}//end of selectBaker
-		
+
 		function getBakerObject($id)
 		{
 			$connection=$this->getConnection();
@@ -168,23 +168,23 @@
 				return false;
 			}//if query was a failure
 		}//endGetBakerObject
-		
-		//function I created for display shop on map.
+
+		/*//function I created for display shop on map.
 		function getBakerLocation() //returning full address of the baker.
 		{
 			$connection=$this->getConnection();
 			$bakerID = $connection->query("SELECT * FROM baker WHERE baker_id ==" .$_SESSION["baker_id"]);
-			
+
 			$addressLine1= $connection->query("SELECT address_line1 FROM baker WHERE baker_id ==" .$BakerID)
 			$addressLine2= $connection->query("SELECT address_line2 FROM baker WHERE baker_id ==" .$BakerID)
 			$county= $connection->query("SELECT county FROM baker WHERE baker_id ==" .$BakerID)
 			$postcode= $connection->query("SELECT postcode FROM baker WHERE baker_id ==" .$BakerID)
-			
+
 			$geoCodeAddress = $addressLine1.",".$addressLine2.",".$county.",".$postCode;
-			
+
 			return $geoCodeAddress;
-			
-		}
+
+		}*/
 
 	}//end customerDAO
 ?>

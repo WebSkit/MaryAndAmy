@@ -13,7 +13,7 @@
 		if($arrayResult["success"]==true)
 		{
 			$tempBaker=new Baker($_POST["companyName"],$_POST["password"],$_POST["addressLine1"],$_POST["addressLine2"],$_POST["county"],$_POST["postCode"],5,false,
-				$_POST["servedArea"],null,null,$_POST["phoneNumber"],null,null,$_POST["adminName"],$_POST["adminEmail"],$_POST["contactName"],$_POST["contactEmail"],null);
+				$_POST["servedArea"],null,null,$_POST["phoneNumber"],null,$_POST["adminName"],$_POST["adminEmail"],$_POST["contactName"],$_POST["contactEmail"],null);
 			//nulls exists either as they don't need to be
 			//var_dump($tempUser);
 			$tempDAO=new bakerDAO();
