@@ -1,5 +1,5 @@
 <?php
-	
+
 	$requiredAddress=realpath(dirname(__FILE__).'\..\databaseDetails.php');
 	require($requiredAddress);
 	class reviewsDAO{
@@ -15,7 +15,7 @@
 			}//if there was a connection error
 			return $connection;
 		}//end getConnection
-		
+
 		function getReviews($bakerId)
 		{
 			//not using prepared statement as the bakerId is never chosen by the user, please tell me if there is anything I may have missed
@@ -57,7 +57,7 @@
 				return null;
 			}//if no data, return null
 		}//end getReviews
-		
+
 		function flagReview($reviewId,$bakerId)
 		{
 			if(is_numeric($reviewId) && is_numeric($bakerId))
@@ -71,8 +71,8 @@
 					$tempVariable;
 					$result=$prepStatement->get_result();
 					$numRows=$result->num_rows;
-					
-					
+
+
 					if($numRows>0)
 					{
 						$queryInsert="UPDATE review SET flagged=true WHERE reviewId=?";

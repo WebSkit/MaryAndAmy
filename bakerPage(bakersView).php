@@ -16,7 +16,7 @@ else//else allow the rest of the page to be loaded
 	<head>
 
 	</head>
-	
+
 	<body>
 		<script type="text/javascript" src="bakerOptions/flagReview.js"></script>
 
@@ -59,11 +59,11 @@ else//else allow the rest of the page to be loaded
 												<li>By<?php echo " ".$reviewsArray[$tempCount]["customerName"];?></li>
 												<li><button class="<?php if($reviewsArray[$tempCount]["flagged"]==false){ echo "flagReview";}else{ echo "flagPending";}?>" type="button" data-reviewid="<?php echo $reviewsArray[$tempCount]["reviewId"]; ?>"><?php if($reviewsArray[$tempCount]["flagged"]==false){echo "Flag Review";}else{echo "Flag waiting Approval";}?></button></li>
 											</ul>
-										</li>	
+										</li>
 									<?php
 									$tempCount++;
 								}//while there are reviews in the list
-								
+
 							?>
 						</ul>
 						<?php

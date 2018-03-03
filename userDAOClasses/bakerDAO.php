@@ -146,7 +146,7 @@
 		function getBakerObject($id)
 		{
 			$connection=$this->getConnection();
-			$prepStatement=$connection->prepare("SELECT * FROM bakers WHERE bakerId = ?");
+			$prepStatement=$connection->prepare("SELECT * FROM baker WHERE bakerId = ?");
 			$prepStatement->bind_param("s", $id);
 			$result;//=$prepStatement->execute();
 			if($prepStatement->execute())
@@ -156,7 +156,7 @@
 				$bakerObject;
 				while($row=$result->fetch_assoc())
 				{
-					$bakerObject=new Baker($row["companyName"],$row["password"],$row["addressLine1"],$row["addressLine2"],$row["county"],$row["postCode"],$row["pictureCount"],$row["isApproved"],$row["servedArea"],$row["logo"],$row["website"],$row["shopPhoneNumber"],$row["minNoticeTime"],$row["adminName"],$row["adminEmail"],$row["contactName"],$row["contactEmail"],$row["facebookPage"]);
+					$bakerObject=new Baker($row["companyName"],$row["password"],$row["addressLine1"],$row["addressLine2"],$row["county"],$row["postcode"],$row["pictureCount"],$row["isApproved"],$row["servedArea"],$row["logo"],$row["website"],$row["shopPhoneNumber"],$row["minNoticeTime"],$row["adminName"],$row["adminEmail"],$row["contactName"],$row["contactEmail"],$row["facebookPage"]);
 					return $bakerObject;
 				}
 				return $result;
@@ -167,22 +167,31 @@
 			}//if query was a failure
 		}//endGetBakerObject
 
-		/*//function I created for display shop on map.
-		function getBakerLocation() //returning full address of the baker.
+		//function I created for display shop on map.
+		function getBakerLocation($bakerID) //returning full address of the baker.
 		{
 			$connection=$this->getConnection();
-			$bakerID = $connection->query("SELECT * FROM baker WHERE baker_id ==" .$_SESSION["baker_id"]);
+			$prepStatement=$connection->prepare("SELECT * FROM baker WHERE bakerID = ?");
+			$prepStatement->bind_param("s",$bakerID);
 
-			$addressLine1= $connection->query("SELECT address_line1 FROM baker WHERE baker_id ==" .$BakerID)
-			$addressLine2= $connection->query("SELECT address_line2 FROM baker WHERE baker_id ==" .$BakerID)
-			$county= $connection->query("SELECT county FROM baker WHERE baker_id ==" .$BakerID)
-			$postcode= $connection->query("SELECT postcode FROM baker WHERE baker_id ==" .$BakerID)
+			$result;//=$prepStatement->execute();
+			if($prepStatement->execute())
+			{
+				$result = $prepStatement->get_result();
 
-			$geoCodeAddress = $addressLine1.",".$addressLine2.",".$county.",".$postCode;
-
-			return $geoCodeAddress;
-
-		}*/
+				$bakerObject;
+				while($row=$result->fetch_assoc())
+				{
+					$bakerObject=new Baker($row["companyName"],$row["password"],$row["addressLine1"],$row["addressLine2"],$row["county"],$row["postcode"],$row["pictureCount"],$row["isApproved"],$row["servedArea"],$row["logo"],$row["website"],$row["shopPhoneNumber"],$row["minNoticeTime"],$row["adminName"],$row["adminEmail"],$row["contactName"],$row["contactEmail"],$row["facebookPage"]);
+					return $bakerObject;
+				}
+				return $result;
+			}//if query was a success
+			else
+			{
+				return false;
+			}//if query was a failure
+		}
 
 	}//end customerDAO
 ?>
