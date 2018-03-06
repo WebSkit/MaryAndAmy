@@ -167,6 +167,42 @@
 			}//if query was a failure
 		}//endGetBakerObject
 
+		
+		function setLogo($userId,$logoDirectory)
+		{
+			$connection=$this->getConnection();
+			$query="UPDATE baker SET logo=? WHERE bakerID=?";
+			$prepStatement=$connection->prepare($query);
+			$prepStatement->bind_param("ss",$logoDirectory,$userId);
+			$prepStatement->execute();
+			
+			if($prepStatement->affected_rows>0)
+			{
+				return true;
+			}//if the logo location was successfully added
+			else
+			{
+				return false;
+			}//if the update failed
+		}
+		function getLogoLocation($userId)
+		{
+			$connection=$this->getConnection();
+			$query="SELECT * FROM baker WHERE bakerID=?";
+			$prepStatement=$connection->prepare($query);
+			$prepStatement->bind_param("s",$userId);
+			if($prepStatement->execute())
+			{
+				$result=$prepStatement->get_result();
+				while($row=$result->fetch_assoc())
+				{
+					return $row["logo"];
+				}
+			}//if query executed successfully
+			
+			return false;
+		}//end getLogoLocation
+		
 		//function I created for display shop on map.
 		function getBakerLocation($bakerID) //returning full address of the baker.
 		{
