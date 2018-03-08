@@ -79,7 +79,7 @@
 			$id=$_SESSION["bakerID"];
 			$companyName=$newBakerObject->getName();
 			$passwordUser=$newBakerObject->getPassword();
-			$email=$newBakerObject->getEmail();
+			//$email=$newBakerObject->getEmail();
 			$addressLine1=$newBakerObject->getAddressLine1();
 			$addressLine2=$newBakerObject->getAddressLine2();
 			$county=$newBakerObject->getCounty();
@@ -91,7 +91,7 @@
 			$logo=$newBakerObject->getLogo();
 			$website==$newBakerObject->getWebsite();
 			$shopPhoneNumber=$newBakerObject->getShopePhoneNumber();
-			$businessType=$newBakerObject->getBusinessType();
+			//$businessType=$newBakerObject->getBusinessType();
 			$minNoticeTime=$newBakerObject->getMinNoticeTime();
 			$adminName=$newBakerObject->getAdminName();
 			$adminEmail=$newBakerObject->getAdminEmail();
@@ -227,7 +227,58 @@
 			{
 				return false;
 			}//if query was a failure
-		}
-
-	}//end customerDAO
+		}//end getBakerLocation
+		
+		function changeServiceOptions($serviceArea,$minNoticeTime,$bakerId)
+		{
+			if(is_numeric($serviceArea) && is_numeric($minNoticeTime))
+			{
+				$connection=$this->getConnection();
+				//echo $connection->error;
+				$query="UPDATE baker SET servedArea=?, minNoticeTime=? WHERE bakerID=?";
+				if($prepStatement=$connection->prepare($query))
+				{
+				$prepStatement->bind_param("sss",$serviceArea,$minNoticeTime,$bakerId);
+				$prepStatement->execute();
+				if($prepStatement->affected_rows>0)
+				{
+					return true;
+				}//if the logo location was successfully added
+				else
+				{
+					return false;
+				}//if the update failed
+				}//if the statement was prepared sucessfully
+				
+			}//if both the inputs are numeric
+			else
+			{
+				return false;
+			}
+		return false;//if nothing has been returned, something went wrong, return false
+			
+		}//changeServiceOptions method
+		function updateDetails($bakerObject)
+		{
+			$connection=$this->getConnection();
+			$query="UPDATE baker SET companyName=?, addressLine1=?,addressLine2=?,postcode=?,county=?,shopPhoneNumber=?,website=?,facebookPage=? WHERE bakerId=?";
+			$prepStatement=$connection->prepare($query);
+			
+			$companyName=$bakerObject->getName();
+			$addressLine1=$bakerObject->getAddressLine1();
+			$addressLine2=$bakerObject->getAddressLine2();
+			$postcode=$bakerObject->getPostCode();
+			$county=$bakerObject->getCounty();
+			$phoneNumber=$bakerObject->getShopPhoneNumber();
+			$website=$bakerObject->getWebsite();
+			$facebookPage=$bakerObject->getFacebookPage();
+			$prepStatement->bind_param("sssssssss",$companyName,$addressLine1,$addressLine2,$postcode,$county,$phoneNumber,$website,$facebookPage,$_SESSION["userId"]);
+			if($prepStatement->execute())
+			{
+				return true;
+			
+			return false;
+		}//updateDetails, this method is for use for the changeDetails.php page only
+	
+	}//end bakerDAO
 ?>
