@@ -276,7 +276,7 @@
 			if($prepStatement->execute())
 			{
 				return true;
-			
+			}
 			return false;
 		}//updateDetails, this method is for use for the changeDetails.php page only
 	
