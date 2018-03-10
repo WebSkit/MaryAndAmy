@@ -52,7 +52,7 @@ if(isset($_POST["editDetails"]))
 	-minNoticeTime
 	-facebookPage
 	-website
-	
+
 	The following will be editted on different pages
 	-adminName
 	-adminEmail(as the two emails are for two different people)
@@ -61,18 +61,18 @@ if(isset($_POST["editDetails"]))
 	-servedArea(it goes with some other stuff)
 	-buisnessType(because there are multiple)
 	-logo(due to it needing an upload)
-	
-	
+
+
 	-->
 <body>
 	<form method="post" id="createBakerForm">
 
 		<h3>Company Name</h3>
 		<input type="text" name="companyName" value="<?php echo $bakerObject->getName();?>">
-		
+
 		<!--<h3>Password</h3>
 		<input type="password" name="password" value=""> will remove this as with a encyrpted password, odd results may result by changing it here-->
-		
+
 		<h3>address Line 1</h3>
 		<input type="text" name="addressLine1" value="<?php echo $bakerObject->getAddressLine1();?>">
 		<h3>address Line 2</h3>
@@ -81,15 +81,15 @@ if(isset($_POST["editDetails"]))
 		<input type="text" name="postCode" value="<?php echo $bakerObject->getPostCode();?>">
 		<h3>County</h3><!--feel free to remove country if it is irrelevant-->
 		<input type="text" name="county" value="<?php echo $bakerObject->getCounty();?>">
-		
+
 		<h3>Phone Number</h3>
 		<input type="text" name="phoneNumber" value="<?php echo $bakerObject->getShopPhoneNumber();?>">
-		
-		
-		
+
+
+
 		<h3>Facebook Page</h3>
 		<input type="text" name="faceBookPage"value="<?php echo $bakerObject->getFacebookPage();?>">
-		
+
 		<h3>Website Address</h3>
 		<input type="text" name="companyWebSite" value="<?php echo $bakerObject->getWebsite();?>"><br>
 		<input type="submit" name="editDetails" value="Update Account" ></input>

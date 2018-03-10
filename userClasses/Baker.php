@@ -1,5 +1,5 @@
 <?php
-require("userClasses/User.php");//newBakers parent class
+require(realpath(dirname(__FILE__).'\..\userClasses/User.php'));//newBakers parent class
 	class Baker extends User{
 		var $addressLine1;
 		var $addressLine2;

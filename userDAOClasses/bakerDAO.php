@@ -1,8 +1,8 @@
 <?php
 	session_start();
 	$_SESSION["baker_id"]=1;//this is only testing will need to change it later
-	require('../MaryAndAmy/databaseDetails.php');
-	require("../MaryAndAmy/userClasses/Baker.php");//go up a level, then find the file
+	require(realpath(dirname(__FILE__).'\..\databaseDetails.php'));
+	require(realpath(dirname(__FILE__).'\..\userClasses/Baker.php'));//go up a level, then find the file
 	class BakerDAO
 	{
 		var $serverName;
@@ -167,7 +167,7 @@
 			}//if query was a failure
 		}//endGetBakerObject
 
-		
+
 		function setLogo($userId,$logoDirectory)
 		{
 			$connection=$this->getConnection();
@@ -175,7 +175,7 @@
 			$prepStatement=$connection->prepare($query);
 			$prepStatement->bind_param("ss",$logoDirectory,$userId);
 			$prepStatement->execute();
-			
+
 			if($prepStatement->affected_rows>0)
 			{
 				return true;
@@ -199,10 +199,10 @@
 					return $row["logo"];
 				}
 			}//if query executed successfully
-			
+
 			return false;
 		}//end getLogoLocation
-		
+
 		//function I created for display shop on map.
 		function getBakerLocation($bakerID) //returning full address of the baker.
 		{
@@ -228,7 +228,7 @@
 				return false;
 			}//if query was a failure
 		}//end getBakerLocation
-		
+
 		function changeServiceOptions($serviceArea,$minNoticeTime,$bakerId)
 		{
 			if(is_numeric($serviceArea) && is_numeric($minNoticeTime))
@@ -249,21 +249,21 @@
 					return false;
 				}//if the update failed
 				}//if the statement was prepared sucessfully
-				
+
 			}//if both the inputs are numeric
 			else
 			{
 				return false;
 			}
 		return false;//if nothing has been returned, something went wrong, return false
-			
+
 		}//changeServiceOptions method
 		function updateDetails($bakerObject)
 		{
 			$connection=$this->getConnection();
 			$query="UPDATE baker SET companyName=?, addressLine1=?,addressLine2=?,postcode=?,county=?,shopPhoneNumber=?,website=?,facebookPage=? WHERE bakerId=?";
 			$prepStatement=$connection->prepare($query);
-			
+
 			$companyName=$bakerObject->getName();
 			$addressLine1=$bakerObject->getAddressLine1();
 			$addressLine2=$bakerObject->getAddressLine2();
@@ -279,6 +279,6 @@
 			}
 			return false;
 		}//updateDetails, this method is for use for the changeDetails.php page only
-	
+
 	}//end bakerDAO
 ?>
