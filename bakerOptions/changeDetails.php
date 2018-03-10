@@ -18,16 +18,15 @@ if($bakerObject==false)
 
 if(isset($_POST["editDetails"]))
 {
-	echo "posting done";
+	//echo "posting done";
 	$bakerObject->setName($_POST["companyName"]);
-	$bakerObject->setPassword($_POST["password"]);
 	$bakerObject->setAddressLine1($_POST["addressLine1"]);
 	$bakerObject->setAddressLine2($_POST["addressLine2"]);
 	$bakerObject->setCounty($_POST["county"]);
 	$bakerObject->setShopPhoneNumber($_POST["phoneNumber"]);
 	$bakerObject->setFacebookPage($_POST["faceBookPage"]);
 	$bakerObject->setWebsite($_POST["companyWebSite"]);
-	if($bakerDAO->updateBaker($bakerObject)==true)
+	if($bakerDAO->updateDetails($bakerObject)==true)
 	{
 		echo "update successful";
 	}
@@ -35,7 +34,7 @@ if(isset($_POST["editDetails"]))
 	{
 		echo "update failure";
 	}
-
+	//echo $bakerDAO->updateDetails($bakerObject);
 }
 ?>
 <!doctype html>
@@ -71,8 +70,8 @@ if(isset($_POST["editDetails"]))
 		<h3>Company Name</h3>
 		<input type="text" name="companyName" value="<?php echo $bakerObject->getName();?>">
 		
-		<h3>Password</h3>
-		<input type="password" name="password">
+		<!--<h3>Password</h3>
+		<input type="password" name="password" value=""> will remove this as with a encyrpted password, odd results may result by changing it here-->
 		
 		<h3>address Line 1</h3>
 		<input type="text" name="addressLine1" value="<?php echo $bakerObject->getAddressLine1();?>">
@@ -86,15 +85,14 @@ if(isset($_POST["editDetails"]))
 		<h3>Phone Number</h3>
 		<input type="text" name="phoneNumber" value="<?php echo $bakerObject->getShopPhoneNumber();?>">
 		
-		<!--<h3>Minimum Notice Time</h3>
-		<input type="text" name="minNoticeTime"> I will change this to a different update form-->
+		
 		
 		<h3>Facebook Page</h3>
 		<input type="text" name="faceBookPage"value="<?php echo $bakerObject->getFacebookPage();?>">
 		
 		<h3>Website Address</h3>
-		<input type="text" name="companyWebSite"><br>
-		<input type="submit" name="editDetails" value="Update Account" value="<?php echo $bakerObject->getWebsite();?>"></input>
+		<input type="text" name="companyWebSite" value="<?php echo $bakerObject->getWebsite();?>"><br>
+		<input type="submit" name="editDetails" value="Update Account" ></input>
 	</form>
 </body>
 
