@@ -7,14 +7,14 @@
 	require("userDAOClasses/reviewDAO.php");
 
 
-	if(isset($_POST["reviewSubmit"]) //if post == review submit
+	if(isset($_POST["reviewSubmit"])) //if post == review submit
 	{
 		//to get radio button value,
 		$temp_dao = new reviewDAO();
 		$comment = $_POST["commentArea"];
 		$rating = $_POST["rating"];
 
-		$temp_dao->insertComment($comment,$rating)
+		$temp_dao->insertComment($comment,$rating);
 
 	}
 
@@ -33,17 +33,13 @@
 		<br> <br>
 
 		Rating: <br>
-	<input type="radio" name="rating"value="5" /> 5
-	<input type="radio" name="rating" value="4" /> 4
-    <input type="radio" name="rating" value="3" /> 3
-	<input type="radio" name="rating" value="2" /> 2
-	<input type="radio" name="rating" value="1" /> 1
+		<input type="radio" name="rating" value="1" /> 1
+		<input type="radio" name="rating" value="2" /> 2
+		<input type="radio" name="rating" value="3" /> 3
+		<input type="radio" name="rating" value="4" /> 4
+		<input type="radio" name="rating"value="5" /> 5
 
-
-
-	<input type="submit" value="Submit" name="reviewSubmit">
-
-
+		<input type="submit" value="Submit" name="reviewSubmit">
 
 	</form>
 

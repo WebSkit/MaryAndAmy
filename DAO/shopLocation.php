@@ -64,7 +64,7 @@
             echo "<strong>ERROR: {$resp['status']}</strong>";
             return false;
         }
-    }
+    } //end function geocodeAddress 
 
     $connection = getConnection();
     $prepStatement=$connection->prepare("SELECT * FROM baker WHERE bakerId = ?");
