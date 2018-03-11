@@ -31,7 +31,7 @@
                             <th>Customer ID</th>
                             <th>Enquiry Description</th>
                             <th>Maximum Price</th>
-                            <th>Reply Due By</th>
+                            <th>Respond By</th>
                             <th colspan="2">Respond to Enquiry</th>
                         </tr>
                         <?php foreach ($enquiries as $enquiry) {
@@ -51,6 +51,9 @@
             </html>
 
 <?php
-        } //end if statement
-    } //end else statement
+        } //end if (there are enquiries in the array) statement
+        else {
+            echo "There are no enquiries for you to respond to.";
+        }
+    } //end else (if baker) statement
 ?>

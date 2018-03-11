@@ -33,14 +33,18 @@
 			}
 			$enquiriesArray=array();
 			$tempCount=0;
+            $currentDate = new DateTime();
 			if($result->num_rows>0)
 			{
 				while($row=$result->fetch_assoc())
 				{
 					echo "<br>";
-                    //possible to add enquiryid: ->>> "enquiryID"=>$row["enquiryID"],
-					$enquiriesArray[$tempCount]=array("customerID"=>$row["customerID"],"enquiryDescription"=>$row["enquiryDescription"],"priceRange"=>$row["priceRange"],"dueBy"=>$row["dueByDate"]);
-					$tempCount++;
+                    $dueByDate = new DateTime($row['dueByDate']);
+                    if($dueByDate > $currentDate) {
+                        //possible to add enquiryid: ->>> "enquiryID"=>$row["enquiryID"],
+    					$enquiriesArray[$tempCount]=array("customerID"=>$row["customerID"],"enquiryDescription"=>$row["enquiryDescription"],"priceRange"=>$row["priceRange"],"dueBy"=>$row["dueByDate"]);
+    					$tempCount++;
+                    }
 				}//while item in result object
 				return $enquiriesArray;
 			}//if there is data about enquiries
