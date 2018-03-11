@@ -1,7 +1,4 @@
 <?php
-//removes all warning messages not related to compilation so they are not displayed
-//error_reporting(0);
-session_start();
 require("userDAOClasses/bakerDAO.php");
 require("DAO/reviewsDAO.php");
 $bakerID = 1;
