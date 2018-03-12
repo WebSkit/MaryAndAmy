@@ -35,7 +35,7 @@
 			//method to populate review table.
 			function insertComment($comment, $rating)
 			{
-				if(ifOrderComplete($jobID)==true)
+				while(ifOrderComplete($jobID) != false)
 				{
 					$conn = getConnection();
 					$query = $conn->prepare("INSERT INTO review(jobID,description, rating, date)
@@ -58,21 +58,12 @@
 
 			//to check if order is completed,
 
-
-			//getting jobID from job table
-			function getJobID($jobID)
-			{
-				$conn = getConnection();
-				$result = $conn->query("SELECT * FROM job WHERE jobID ==" .$jobID);
-				return $result;
-			}
-
 			//false if < 0; true otherwise.
 			//method to use for if statement.
-			function ifOrderComplete($jobID)
+			function ifOrderComplete()
 			{
 				$conn = getConnection();
-				$jobID = getJobID($jobID);
+				$jobID = $conn->query("SELECT * FROM job WHERE jobID ==" .$jobID);
 
 				$result = $conn->query("SELECT isComplete FROM job WHERE jobID ==" .$jobID);
 
