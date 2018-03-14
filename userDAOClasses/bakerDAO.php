@@ -69,17 +69,18 @@
 			}//if query was a failure
 		}//end createBaker
 
-		function updateBaker($newBakerObject)
+		function updateBaker($newBakerObject)//working
 		{
 			$connection=$this->getConnection();
-			$prepStatement=$connection->prepare("UPDATE baker SET companyName=?,password=?, email=?,addressLine1=?,addressLine2=?,county=?, postCode=?,pictureCount=?,isApproved=?,
-				servedArea=?, logo=?, website=?, shopPhoneNumber=?, businessType=?, minNoticeTime=?, adminName=?, adminEmail=?, contactName=?, contactEmail=?, facebookPage=?
-				WHERE bakerID=?;");
-
-			$id=$_SESSION["bakerID"];
+			$prepStatement=$connection->prepare("UPDATE baker SET companyName=?,password=?, 
+			addressLine1=?,addressLine2=?, postCode=?,county=?, 
+			pictureCount=?,	isApproved=?, servedArea=?, logo=?, 
+			website=?, shopPhoneNumber=?, minNoticeTime=?, adminName=?, 
+			adminEmail=?, contactName=?, contactEmail=?, facebookPage=? WHERE bakerId=?;");
+			
+			$id=$_SESSION["bakerId"];
 			$companyName=$newBakerObject->getName();
 			$passwordUser=$newBakerObject->getPassword();
-			//$email=$newBakerObject->getEmail();
 			$addressLine1=$newBakerObject->getAddressLine1();
 			$addressLine2=$newBakerObject->getAddressLine2();
 			$county=$newBakerObject->getCounty();
@@ -87,20 +88,21 @@
 			$pictureCount=$newBakerObject->getPictureCount();
 			$isApproved=$newBakerObject->getIsApproved();
 			$servedArea=$newBakerObject->getServedArea();
-
 			$logo=$newBakerObject->getLogo();
 			$website==$newBakerObject->getWebsite();
-			$shopPhoneNumber=$newBakerObject->getShopePhoneNumber();
-			//$businessType=$newBakerObject->getBusinessType();
+			$shopPhoneNumber=$newBakerObject->getShopPhoneNumber();
 			$minNoticeTime=$newBakerObject->getMinNoticeTime();
 			$adminName=$newBakerObject->getAdminName();
 			$adminEmail=$newBakerObject->getAdminEmail();
 			$contactName=$newBakerObject->getContactName();
 			$contactEmail=$newBakerObject->getContactEmail();
 			$facebookPage==$newBakerObject->getFacebookPage();
-
-			$prepStatement->bind_param("sssssssssssssssssssss",$companyName,$passwordUser,$email,$addressLine1,$addressLine2,$county,$postCode,$pictureCount,$isApproved,
-				$servedArea,$logo,$website,$shopPhoneNumber,$businessType,$minNoticeTime,$adminName,$adminEmail,$contactName,$contactEmail,$facebookPage,$id);
+			
+			$prepStatement->bind_param("sssssssssssssssssss",$companyName,$passwordUser,
+			$addressLine1,$addressLine2,$postCode,$county,
+			$pictureCount,$isApproved,$servedArea,$logo,
+			$website,$shopPhoneNumber,$minNoticeTime,$adminName,
+			$adminEmail,$contactName,$contactEmail,$facebookPage,$id);
 			if($prepStatement->execute())
 			{
 				return true;
@@ -108,8 +110,8 @@
 			else
 			{
 				return false;
-			}//if query was a failure
-		}//end updateCustomer
+			}//if query was a failure	
+		}//end createCustomer
 
 		function deleteBaker($bakerNumber)
 		{
@@ -279,6 +281,90 @@
 			}
 			return false;
 		}//updateDetails, this method is for use for the changeDetails.php page only
-
+		
+		
+		function deleteBaker($bakerNumber)//working
+		{
+			$connection=$this->getConnection();
+			$prepStatement=$connection->prepare("DELETE FROM baker WHERE bakerID = ?;");
+			
+			$prepStatement->bind_param("s", $bakerNumber);
+			if($prepStatement->execute())
+			{
+				return true;
+			}//if query was a success
+			else
+			{
+				return false;
+			}//if query was a failure
+		}//end deleteBaker
+		
+		function selectBaker($type,$condition)//working
+		{
+			$connection=$this->getConnection();
+			/*//doesnt work dont know why review later
+			$prepStatement=$connection->prepare("SELECT * FROM baker WHERE ? = ?");
+			$prepStatement->bind_param("ss", $type,$condition);
+			$result=$prepStatement->execute();
+			if($prepStatement->execute())*/
+			$query="SELECT * FROM baker WHERE ".$type." = ".$condition;
+			
+			if($result=$connection->query($query))
+			{
+			$bakerArray=array();
+			$tempCount=0;
+			if($result->num_rows>0)
+			{
+				//echo "row num= ".$result->num_rows;
+				while($row=$result->fetch_assoc()){//code for the array
+					$bakerArray[$tempCount]=array(
+					"bakerId"=>$row["bakerID"], 
+					"addressLine1"=>$row["addressLine1"], 
+					"addressLine2"=>$row["addressLine2"], 
+					"county"=>$row["county"], 
+					"postcode"=>$row["postcode"], 
+					"pictureCount"=>$row["pictureCount"], 
+					"isApproved"=>$row["isApproved"],	
+					"servedArea"=>$row["servedArea"], 
+					"logo"=>$row["logo"], 
+					"website"=>$row["website"], 
+					"shopPhoneNumber"=>$row["shopPhoneNumber"], 
+					"minNoticeTime"=>$row["minNoticeTime"], 
+					"adminName"=>$row["adminName"], 
+					"adminEmail"=>$row["adminEmail"], 
+					"contactName"=>$row["contactName"], 
+					"contactEmail"=>$row["contactEmail"], 
+					"facebookPage"=>$row["facebookPage"]
+					);
+					
+					$tempCount++;
+				}//while item in result object
+				return $bakerArray;
+			}//if there is data about reviews
+			else
+			{
+				return null;
+			}//if no data, return null
+		}//if query was a success
+		else
+		{
+			echo "no";
+		}//if query was a failure
+		}//end of selectBaker
+	
+		function verifyBaker ($bakerId)
+		{
+			$connection=$this->getConnection();
+			$prepStatement=$connection->prepare("UPDATE baker SET isApproved = 1 WHERE bakerID =?");
+			$prepStatement->bind_param("s",$bakerId);
+			if($prepStatement->execute())
+			{
+				return true;
+			}//if query was a success
+			else
+			{
+				return false;
+			}//if query was a failure	
+		}//end of verifyBaker
 	}//end bakerDAO
 ?>
