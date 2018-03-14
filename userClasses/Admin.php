@@ -1,5 +1,5 @@
 <?php
-require("userClasses/User.php");//newBakers parent class
+require(realpath(dirname(__FILE__).'\..\userClasses/newUser.php'));
 
 	class Admin extends User{
 		var $email;
