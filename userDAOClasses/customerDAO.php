@@ -1,8 +1,9 @@
 <?php
 	session_start();
 	$_SESSION["customer_id"]=1;//this is only testing will need to change it later
-	require('../MaryAndAmy/databaseDetails.php');
-	require("../MaryAndAmy/userClasses/Customer.php");//go up a level, then find the file
+	
+	require(realpath(dirname(__FILE__).'\..\databaseDetails.php'));
+	require(realpath(dirname(__FILE__).'\..\userClasses/newCustomer.php'));//go up a level, then find the file
 	class customerDAO
 	{
 		var $serverName;
@@ -76,5 +77,102 @@
 				return false;
 			}//if query was a failure
 		}
+				function deleteCustomer($customerNumber)
+		{
+			$connection=$this->getConnection();
+			$prepStatement=$connection->prepare("DELETE FROM customer WHERE customerId = ?;");
+			
+			$prepStatement->bind_param("s", $customerNumber);
+			if($prepStatement->execute())
+			{
+				return true;
+			}//if query was a success
+			else
+			{
+				return false;
+			}//if query was a failure
+		}//end deleteBaker
+	}//end customerDAO
+	
+	function selectCustomer($type,$condition)
+	{
+		$connection=$this->getConnection();
+		$prepStatement=$connection->prepare("SELECT * FROM customer WHERE ? = ?");
+		$prepStatement->bind_param("ss", $type,$condition);
+		$result=$prepStatement->execute();
+		if($prepStatement->execute())
+		{
+			$result = $prepStatement->get_result();
+			$customerObject;
+			while($row=$result->fetch_assoc())
+			{
+				$customerObject=new customer($row["name"],$row["password"],$row["surname"],$row["email"],$row["addressLine1"],$row["addressLine2"],$row["postcode"],$row["county"]);
+				return $customerObject;
+			}
+		}//if query was a success
+		else
+		{
+			return false;
+		}//if query was a failure
+	}//end of approveBakerFind
+	
+	function getPassword()//still changing
+	{
+		$connection=$this->getConnection();
+		$prepStatement=$connection->prepare("SELECT Password from customer WHERE customerId = ?");
+		$prepStatement->bind_param("s", $_SESSION["userId"]);
+		$result=$prepStatement->execute();
+		if($prepStatement->execute())
+		{
+			$result = $prepStatement->get_result();
+			$customerObject;
+			while($row=$result->fetch_assoc())
+			{
+				$customerObject=new customer($row["password"]);
+				return $customerObject;
+			}
+		}//if query was a success
+		else
+		{
+			return false;
+		}//if query was a failure
+	}//end of getPassword
+	
+	function updatePassword($condition)
+	{
+		$connection=$this->getConnection();		
+		$prepStatement=$connection->prepare("UPDATE customer SET password= ? WHERE customerId = ?");
+		$prepStatement->bind_param("ss", $condition,$_SESSION["userId"]);
+		$result=$prepStatement->execute();
+		if($prepStatement->execute())
+		{
+			$result = $prepStatement->get_result();
+			$customerObject;
+			while($row=$result->fetch_assoc())
+			{
+				$customerObject=new customer($row["password"]);
+				return $customerObject;
+			}
+		}//if query was a success
+		else
+		{
+			return false;
+		}//if query was a failure
+			if($prepStatement->execute())
+			{
+				$result = $prepStatement->get_result();
+				$bakerObject;
+				while($row=$result->fetch_assoc())
+				{
+					$bakerObject=new Baker($row["companyName"],$row["password"],$row["addressLine1"],$row["addressLine2"],$row["county"],$row["postcode"],$row["pictureCount"],$row["isApproved"],$row["servedArea"],$row["logo"],$row["website"],$row["shopPhoneNumber"],$row["minNoticeTime"],$row["adminName"],$row["adminEmail"],$row["contactName"],$row["contactEmail"],$row["facebookPage"]);
+					return $bakerObject;
+				}
+				return $result;
+			}//if query was a success
+			else
+			{
+				return false;
+			}//if query was a failure
+	}
 	}//end customerDAO
 ?>
