@@ -2,9 +2,8 @@
 	session_start();
 	$_SESSION["adminId"]=1;//this is only testing will need to change it later
 
-	//require("../MaryAndAmy/userDAOClasses/bakerDAO.php");
-	require('../MaryAndAmy/databaseDetails.php');
-	require("../MaryAndAmy/userClasses/Admin.php");//go up a level, then find the file
+	require(realpath(dirname(__FILE__).'\..\databaseDetails.php'));
+	require(realpath(dirname(__FILE__).'\..\userClasses/newAdmin.php'));//go up a level, then find the file
 	class adminDAO
 	{
 		var $serverName;
