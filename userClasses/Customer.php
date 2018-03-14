@@ -1,5 +1,5 @@
 <?php
-	require("userClasses/User.php");//newCustomers parent class
+	require(realpath(dirname(__FILE__).'\..\userClasses/newUser.php'));//newCustomers parent class
 
 	class Customer extends User{
 		var $surname;
