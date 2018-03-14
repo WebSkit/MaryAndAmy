@@ -72,12 +72,12 @@
 		function updateBaker($newBakerObject)//working
 		{
 			$connection=$this->getConnection();
-			$prepStatement=$connection->prepare("UPDATE baker SET companyName=?,password=?, 
-			addressLine1=?,addressLine2=?, postCode=?,county=?, 
-			pictureCount=?,	isApproved=?, servedArea=?, logo=?, 
-			website=?, shopPhoneNumber=?, minNoticeTime=?, adminName=?, 
+			$prepStatement=$connection->prepare("UPDATE baker SET companyName=?,password=?,
+			addressLine1=?,addressLine2=?, postCode=?,county=?,
+			pictureCount=?,	isApproved=?, servedArea=?, logo=?,
+			website=?, shopPhoneNumber=?, minNoticeTime=?, adminName=?,
 			adminEmail=?, contactName=?, contactEmail=?, facebookPage=? WHERE bakerId=?;");
-			
+
 			$id=$_SESSION["bakerId"];
 			$companyName=$newBakerObject->getName();
 			$passwordUser=$newBakerObject->getPassword();
@@ -97,7 +97,7 @@
 			$contactName=$newBakerObject->getContactName();
 			$contactEmail=$newBakerObject->getContactEmail();
 			$facebookPage==$newBakerObject->getFacebookPage();
-			
+
 			$prepStatement->bind_param("sssssssssssssssssss",$companyName,$passwordUser,
 			$addressLine1,$addressLine2,$postCode,$county,
 			$pictureCount,$isApproved,$servedArea,$logo,
@@ -110,24 +110,8 @@
 			else
 			{
 				return false;
-			}//if query was a failure	
-		}//end createCustomer
-
-		function deleteBaker($bakerNumber)
-		{
-			$connection=$this->getConnection();
-			$prepStatement=$connection->prepare("DELETE FROM baker WHERE bakerID = ?;");
-
-			$prepStatement->bind_param("s", $bakerNumber);
-			if($prepStatement->execute())
-			{
-				return true;
-			}//if query was a success
-			else
-			{
-				return false;
 			}//if query was a failure
-		}//end deleteBaker
+		}//end createCustomer
 
 		function selectBaker($type,$condition)
 		{
@@ -281,13 +265,13 @@
 			}
 			return false;
 		}//updateDetails, this method is for use for the changeDetails.php page only
-		
-		
+
+
 		function deleteBaker($bakerNumber)//working
 		{
 			$connection=$this->getConnection();
 			$prepStatement=$connection->prepare("DELETE FROM baker WHERE bakerID = ?;");
-			
+
 			$prepStatement->bind_param("s", $bakerNumber);
 			if($prepStatement->execute())
 			{
@@ -298,7 +282,7 @@
 				return false;
 			}//if query was a failure
 		}//end deleteBaker
-		
+
 		function selectBaker($type,$condition)//working
 		{
 			$connection=$this->getConnection();
@@ -308,7 +292,7 @@
 			$result=$prepStatement->execute();
 			if($prepStatement->execute())*/
 			$query="SELECT * FROM baker WHERE ".$type." = ".$condition;
-			
+
 			if($result=$connection->query($query))
 			{
 			$bakerArray=array();
@@ -318,25 +302,25 @@
 				//echo "row num= ".$result->num_rows;
 				while($row=$result->fetch_assoc()){//code for the array
 					$bakerArray[$tempCount]=array(
-					"bakerId"=>$row["bakerID"], 
-					"addressLine1"=>$row["addressLine1"], 
-					"addressLine2"=>$row["addressLine2"], 
-					"county"=>$row["county"], 
-					"postcode"=>$row["postcode"], 
-					"pictureCount"=>$row["pictureCount"], 
-					"isApproved"=>$row["isApproved"],	
-					"servedArea"=>$row["servedArea"], 
-					"logo"=>$row["logo"], 
-					"website"=>$row["website"], 
-					"shopPhoneNumber"=>$row["shopPhoneNumber"], 
-					"minNoticeTime"=>$row["minNoticeTime"], 
-					"adminName"=>$row["adminName"], 
-					"adminEmail"=>$row["adminEmail"], 
-					"contactName"=>$row["contactName"], 
-					"contactEmail"=>$row["contactEmail"], 
+					"bakerId"=>$row["bakerID"],
+					"addressLine1"=>$row["addressLine1"],
+					"addressLine2"=>$row["addressLine2"],
+					"county"=>$row["county"],
+					"postcode"=>$row["postcode"],
+					"pictureCount"=>$row["pictureCount"],
+					"isApproved"=>$row["isApproved"],
+					"servedArea"=>$row["servedArea"],
+					"logo"=>$row["logo"],
+					"website"=>$row["website"],
+					"shopPhoneNumber"=>$row["shopPhoneNumber"],
+					"minNoticeTime"=>$row["minNoticeTime"],
+					"adminName"=>$row["adminName"],
+					"adminEmail"=>$row["adminEmail"],
+					"contactName"=>$row["contactName"],
+					"contactEmail"=>$row["contactEmail"],
 					"facebookPage"=>$row["facebookPage"]
 					);
-					
+
 					$tempCount++;
 				}//while item in result object
 				return $bakerArray;
@@ -351,7 +335,7 @@
 			echo "no";
 		}//if query was a failure
 		}//end of selectBaker
-	
+
 		function verifyBaker ($bakerId)
 		{
 			$connection=$this->getConnection();
@@ -364,7 +348,7 @@
 			else
 			{
 				return false;
-			}//if query was a failure	
+			}//if query was a failure
 		}//end of verifyBaker
 	}//end bakerDAO
 ?>

@@ -1,9 +1,9 @@
 <?php
 	session_start();
 	$_SESSION["customer_id"]=1;//this is only testing will need to change it later
-	
+
 	require(realpath(dirname(__FILE__).'\..\databaseDetails.php'));
-	require(realpath(dirname(__FILE__).'\..\userClasses/newCustomer.php'));//go up a level, then find the file
+	require(realpath(dirname(__FILE__).'\..\userClasses/Customer.php'));//go up a level, then find the file
 	class customerDAO
 	{
 		var $serverName;
@@ -77,11 +77,11 @@
 				return false;
 			}//if query was a failure
 		}
-				function deleteCustomer($customerNumber)
+		function deleteCustomer($customerNumber)
 		{
 			$connection=$this->getConnection();
 			$prepStatement=$connection->prepare("DELETE FROM customer WHERE customerId = ?;");
-			
+
 			$prepStatement->bind_param("s", $customerNumber);
 			if($prepStatement->execute())
 			{
@@ -93,7 +93,7 @@
 			}//if query was a failure
 		}//end deleteBaker
 	}//end customerDAO
-	
+
 	function selectCustomer($type,$condition)
 	{
 		$connection=$this->getConnection();
@@ -115,7 +115,7 @@
 			return false;
 		}//if query was a failure
 	}//end of approveBakerFind
-	
+
 	function getPassword()//still changing
 	{
 		$connection=$this->getConnection();
@@ -137,10 +137,10 @@
 			return false;
 		}//if query was a failure
 	}//end of getPassword
-	
+
 	function updatePassword($condition)
 	{
-		$connection=$this->getConnection();		
+		$connection=$this->getConnection();
 		$prepStatement=$connection->prepare("UPDATE customer SET password= ? WHERE customerId = ?");
 		$prepStatement->bind_param("ss", $condition,$_SESSION["userId"]);
 		$result=$prepStatement->execute();
