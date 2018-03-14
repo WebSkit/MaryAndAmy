@@ -15,7 +15,28 @@
 			}//if there was a connection error
 			return $connection;
 		}//end getConnection
-
+		
+		
+		function createEnquiry($newEnquiryObject)
+		{
+			$connection=$this->getConnection();
+			$prepStatement=$connection->prepare("INSERT INTO enquiry (customerId, enquiryDescription, priceRange, dueBy) VALUES(?,?,?,?)");
+			
+			$customerId=$newEnquiryObject->getCustomerId();
+			$enquiryDescription=$newEnquiryObject->getEnquiryDescription();
+			$priceRange=$newEnquiryObject->getPriceRange();
+			$dueBy=$newEnquiryObject->setDueBy();
+			$prepStatement->bind_param("ssss",$customerId,$enquiryDescription,$priceRange,$dueBy);
+			if($prepStatement->execute())
+			{
+				return true;
+			}//if query was a success
+			else
+			{
+				return false;
+			}//if query was a failure
+		}//end createEnquiry
+		
 		function getEnquiries($bakerID)
 		{
 			//not using prepared statement as the bakerId is never chosen by the user, please tell me if there is anything I may have missed
