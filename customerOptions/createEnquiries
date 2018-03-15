@@ -5,7 +5,8 @@
 	if(isset($_POST["enquirySubmit"]))
 	{	
 		echo $_POST["DBD"];
-		/*$tempEnquiry= new enquiry ($_SESSION["userId"],$_POST["eD"],$_POST["priceRange"],$_POST["DBD"]);
+		//still making the date datatype respondable
+		$tempEnquiry= new enquiry ($_SESSION["userId"],$_POST["eD"],$_POST["priceRange"],$_POST["DBD"]);
 		$tempDAO=new enquiryDAO();
 		$enquiryCreated=$tempDAO->createEnquiry($tempEnquiry);
 		if($enquiryCreated==true)
@@ -15,7 +16,7 @@
 		else
 		{
 			echo "something went wrong, please try again later";
-		}*/
+		}
 	}//if data was submitted successfully from the form
 ?>
 
