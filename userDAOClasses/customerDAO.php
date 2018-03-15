@@ -174,5 +174,31 @@
 				return false;
 			}//if query was a failure
 	}
+
+	function getCustomerObject($id)
+	{
+		echo "the function is entered";
+		$connection=$this->getConnection();
+		$prepStatement=$connection->prepare("SELECT * FROM customer WHERE customerID = ?");
+		$prepStatement->bind_param("s",$id);
+		$result=$prepStatement->execute();
+		if($prepStatement->execute())
+		{
+			echo "the if statement passed";
+			$result = $prepStatement->get_result();
+			$customerObject;
+			while($row=$result->fetch_assoc())
+			{
+				echo "there is a result";
+				$customerObject=new customer($row["firstName"],$row["password"],$row["surname"],$row["email"],$row["addressLine1"],$row["addressLine2"],$row["postcode"],$row["postcode"],$row["county"]);
+				return $customerObject;
+			}
+		}//if query was a success
+		else
+		{
+			echo "it failed to get a result";
+			return false;
+		}//if query was a failure
+	}//end of getCustomerObject
 	}//end customerDAO
 ?>
