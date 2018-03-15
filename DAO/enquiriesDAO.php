@@ -74,7 +74,64 @@
 				return null;
 			}//if no data, return null
 		}//end getEnquiries
-
+	
+		function createEnquiry($newEnquiryObject)
+		{
+			$connection=$this->getConnection();
+			$prepStatement=$connection->prepare("INSERT INTO enquiry (customerId, enquiryDescription, priceRange, dueBy) VALUES(?,?,?,?)");
+			
+			$customerId=$newEnquiryObject->getCustomerId();
+			$enquiryDescription=$newEnquiryObject->getEnquiryDescription();
+			$priceRange=$newEnquiryObject->getPriceRange();
+			$dueBy=$newEnquiryObject->getDueBy();
+			$prepStatement->bind_param("ssss",$customerId,$enquiryDescription,$priceRange,$dueBy);
+			if($prepStatement->execute())
+			{
+				return true;
+			}//if query was a success
+			else
+			{
+				return false;
+			}//if query was a failure
+		}//end createEnquiry
+		
+	
+		function getEnquiriesCust($customerID)
+		{
+			
+			$connection=$this->getConnection();
+            $query="SELECT *, DATE_FORMAT(dueBy,'%d-%m-%Y') AS dueByDate FROM enquiry WHERE customerID = ".$customerID;
+			/*if($result=$connection->query($query))
+			{
+				echo "successful query";
+			}
+			else
+			{
+				echo $connection->error;
+			}*/
+			$result=$connection->query($query);
+			$enquiriesArray=array();
+			$tempCount=0;
+            $currentDate = new DateTime();
+			if($result->num_rows>0)
+			{
+				while($row=$result->fetch_assoc())
+				{
+					
+                    $dueByDate = new DateTime($row['dueByDate']);
+                    //if($dueByDate > $currentDate) {
+    					$enquiriesArray[$tempCount]=array("enquiryID"=>$row["enquiryID"],"customerID"=>$row["customerID"],"enquiryDescription"=>$row["enquiryDescription"],"priceRange"=>$row["priceRange"],"dueBy"=>$row["dueByDate"]);
+    					echo "<br>";
+						$tempCount++;
+                    //}
+				}//while item in result object
+				return $enquiriesArray;
+			}//if there is data about enquiries
+			else
+			{
+				return null;
+			}//if no data, return null
+		}//end getEnquiriesCust
 	}//end enquiriesDAO class
 
 

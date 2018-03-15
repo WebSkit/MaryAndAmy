@@ -1,5 +1,5 @@
 <?php
-	require("userDAOClasses/customerDAO.php");
+	require("..\userDAOClasses/customerDAO.php");
 	if(isset($_POST["customerSubmit"]))
 	{
 		$tempCustomer=new Customer($_POST["firstName"],$_POST["password"],$_POST["surname"],$_POST["email"],$_POST["addressLine1"],$_POST["addressLine2"],$_POST["county"],$_POST["postcode"]);
@@ -35,7 +35,7 @@
 		<input type="text" name="county">
 		<h3>Post Code</h3>
 		<input type="text" name="postcode">
-		<br><br>
+
 		<input type="submit" value="Create Account" name="customerSubmit">
 
 	</form><!--end update_customer_form-->
