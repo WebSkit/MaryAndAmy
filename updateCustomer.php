@@ -35,7 +35,7 @@
 		<input type="text" name="county">
 		<h3>Post Code</h3>
 		<input type="text" name="postcode">
-
+		<br><br>
 		<input type="submit" value="Create Account" name="customerSubmit">
 
 	</form><!--end update_customer_form-->

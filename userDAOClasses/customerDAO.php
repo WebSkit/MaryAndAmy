@@ -173,6 +173,6 @@
 			{
 				return false;
 			}//if query was a failure
-	}
-	}//end customerDAO
+	
+}//end customerDAO
 ?>
