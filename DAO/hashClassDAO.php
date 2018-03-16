@@ -52,28 +52,42 @@
 				
 			}
 			
-			function insertPasswordDB($userPassword,$tableName,$tableID,$saltColumn)
+			//inserting the salt value.
+			function insertSaltDB($userPassword,$tableName,$tableID,$saltColumn)
 			{
 				$conn = getConnection();
 				$hash = hashPassword($userPassword);
 				
-				$conn->query("INSERT INTO ".$tableName."(".$saltColumn.")"."VALUES('".$hash[0]."');")
-				
+				$conn->query("INSERT INTO ".$tableName."(".$saltColumn.")"."VALUES('".$hash[1]."');");
 				
 			}
 			
+			//inserting the hash password
+			function insertPasswordDB($userPassword,$tableName,$passwordColumn)
+			{
+				$conn = getConnection();
+				$hash = hashPassword($userPassword);
+				
+				$conn->query("INSERT INTO ".$tableName."(".$passwordColumn.")"."VALUES('".$hash[0]."');");
+				
+			}
 			
+			//this can be used with three salt table.
 			//username here from the database. either sessionID or tableID(3rd column).
 			function credCheckBaker($IDValue,$password,$saltValue,$tableName,$IDcolumn)
 			{
-				
+				//$IDValue is the actual of session ID.
+				//$IDcolumn is the auto increment. 
 				//password_verify(the password string, stored salt from sql) 
 				
 				$conn = getConnection();
-				$tableHash = $conn->query("SELECT". $saltValue." FROM".$tableName." WHERE ".$IDcolumn."==".$IDValue.";");
+				
+				$salt = $conn->query("SELECT". $saltValue." FROM".$tableName." WHERE ".$IDcolumn."==".$IDValue.";"); //get from salt database
+				$hash = $conn->query("SELECT password FROM".$tableName." WHERE ".$IDcolumn."==".$IDValue.";"); //get from password column.
 				
 				
-				if(password_verify($password, $tableHash)
+				
+				if(password_verify($hash, $salt)
 				{
 					return true;
 				}
