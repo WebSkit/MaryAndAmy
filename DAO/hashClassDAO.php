@@ -27,18 +27,13 @@
 			function hashPassword($userPassword)
 			{
 				//creating random salt.
-				$salt = uniqid(mt_rand(),true);
+				$hash = password_hash($userPassword,PASSWORD_DEFAULT);
+				$salt = substr($hash,7,22);
 				
-				//hashing the salt.
-				$hashSalt = hash('sha2',$salt);
+				//storing the variable as array 
+				$credential = array($hash,$salt);
 				
-				//hashing the password.
-				$hashpassword = crypt($userPassword,$hashSalt);
-				
-				//storing the variable in 
-				$credential = array($hashpassword,$hashSalt);
-				
-				return $credential;	//this is the array that will have the hash and the original salt.
+				return $credential;	//returns an array(the hashed password, the salt used)
 				
 			}
 			
@@ -62,22 +57,26 @@
 				
 			}
 			
-			//this can be used with three salt table.
-			//username here from the database. either sessionID or tableID(3rd column).
-			function credCheckBaker($IDValue,$password,$saltValue,$tableName,$IDcolumn)
+			//this can be used for the three salt table.
+			//parameters:
+				//$IDValue = the session value.
+				//$password = password string input
+				//$saltvalue = inserted salt value in the database
+				//$IDcolumn = the column we want to get.
+			function credCheckBaker($IDValue,$password,/*$saltValue,*/$tableName,$IDcolumn)
 			{
-				//$IDValue is the actual of session ID.
-				//$IDcolumn is the auto increment. 
+				
 				//password_verify(the password string, stored salt from sql) 
 				
 				$conn = getConnection();
 				
-				$salt = $conn->query("SELECT". $saltValue." FROM".$tableName." WHERE ".$IDcolumn."==".$IDValue.";"); //get from salt database
-				$hash = $conn->query("SELECT password FROM".$tableName." WHERE ".$IDcolumn."==".$IDValue.";"); //get from password column.
+				//$salt = $conn->query("SELECT". $saltValue." FROM".$tableName." WHERE ".$IDcolumn."==".$IDValue.";"); //get from salt database
+				$hash = $conn->query("SELECT password FROM".$tableName." WHERE ".$IDcolumn."==".$IDValue.";"); //get from password column in customer/baker/admin table
+				//this is the hash value.
 				
 				
 				
-				if(password_verify($hash, $salt)
+				if(password_verify($password, $hash)
 				{
 					return true;
 				}
