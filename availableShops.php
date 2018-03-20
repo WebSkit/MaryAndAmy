@@ -23,13 +23,14 @@
      
 
         $start = 0;
-
+        
         if(sizeof($shops) == 0)
         {
             echo "There a no shops available in your area";
         }
         else
         {
+            echo "<input type='submit' value='Query all selected shops'><br><br>";
             while( $start < sizeof($shops) )
             {
                 $company = $shops[$start]['companyName'];
@@ -39,9 +40,10 @@
                 echo $company;
                 echo "<br>";
                 echo $review;
+                
+                echo "<input type='checkbox'>";
                 echo "<br>";
-
-                echo "<input type='submit' value='Bisit page'>";              
+                echo "<input type='submit' value='Visit page'>";              
                 
                 echo "<br><br>";
                 $start++;
