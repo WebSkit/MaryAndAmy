@@ -3,17 +3,7 @@
 	
 	class CredentialHashDAO
 	{
-		//need to make two methods.
 		
-		//first will create a hash password. 
-			//this method will use salt and cyrpt() to encrypt password. 
-			//will return an array with two items/elements.
-			//the hashed password and the salt.
-			
-		//second will check if hashed password is correct for the given user.
-			//will return boolean
-			//true if match false otherwise.
-			//maybe can use a map array or something or str methods.
 		
 			function __construct()//attributes value from databaseDetails.php
 			{
