@@ -15,13 +15,12 @@
 			
 			function getConnection()//making the connection.
 			{
-				$conn = new mysqli($server_name,$username,$password,$database);
-				
-				if($conn ->connect_error)
-				{
-					die("Connection Error, try again");
-				}
-				return $conn;
+				$connection=new mysqli($GLOBALS["server"],$GLOBALS["usernameS"],$GLOBALS["passwordS"],$GLOBALS["database"]);
+			if($connection->connect_error)
+			{
+				die("Failed to establish a connection, please try again later");
+			}//if there was a connection error
+			return $connection;
 			}
 			
 			function hashPassword($userPassword)
@@ -38,22 +37,48 @@
 			}
 			
 			//inserting the salt value.
-			function insertSaltDB($userPassword,$tableName,$tableID,$saltColumn)
+			function insertSaltDB($tableName,$hash,$userId)
 			{
-				$conn = getConnection();
-				$hash = hashPassword($userPassword);
+				$conn = $this->getConnection();
 				
-				$conn->query("INSERT INTO ".$tableName."(".$saltColumn.")"."VALUES('".$hash[1]."');");
+				if($conn->query("INSERT INTO ".$tableName."(SValue,userId)"."VALUES('".$hash[1]."',".$userId.")"))
+				{
+					echo "success";
+				}
+				else
+				{
+					echo $conn->error;
+				}
 				
 			}
 			
 			//inserting the hash password
-			function insertPasswordDB($userPassword,$tableName,$passwordColumn)
+			function insertPasswordDB($tableName,$hash,$userId)
 			{
-				$conn = getConnection();
-				$hash = hashPassword($userPassword);
+				$conn = $this->getConnection();
+				$query;
+				if($tableName=="customer")
+				{
+					$query="UPDATE ".$tableName." SET password='".$hash[0]."' WHERE customerID=".$userId;
+					echo "<br>the query is <br>: ".$query."<br>";
+				}
+				if($tableName=="admin")
+				{
+					$query="UPDATE ".$tableName." SET password=".$hash[0]." WHERE adminID=".$userId;
+				}
+				if($tableName=="baker")
+				{
+					$query="UPDATE ".$tableName." SET password=".$hash[0]." WHERE bakerID=".$userId;
+				}
+				if($conn->query($query))
+				{
+					echo "success";
+				}
+				else
+				{
+					echo $conn->error;
+				}
 				
-				$conn->query("INSERT INTO ".$tableName."(".$passwordColumn.")"."VALUES('".$hash[0]."');");
 				
 			}
 			
@@ -76,7 +101,7 @@
 				
 				
 				
-				if(password_verify($password, $hash)
+				if(password_verify($password, $hash))
 				{
 					return true;
 				}
