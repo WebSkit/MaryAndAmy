@@ -3,6 +3,7 @@
 	$requiredAddress=realpath(dirname(__FILE__).'\..\databaseDetails.php');
 
 	require($requiredAddress);
+	require(realpath(dirname(__FILE__).'\..\Classes/product.php'));//go up a level, then find the file
 
 	class productDAO
     {
