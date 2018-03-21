@@ -1,5 +1,5 @@
 <?php
-	class enquiry{
+	class product{
 		var $bakerId;
 		var $price;
 		var $productDescription;
