@@ -30,7 +30,7 @@
 		{
 			$connection=$this->getConnection();
             
-			$prepStatement=$connection->prepare("INSERT INTO product (productID, bakerID, price, productDescription) VALUES(?,?,?,?)");
+			$prepStatement=$connection->prepare("INSERT INTO product (bakerID, price, productDescription) VALUES(?,?,?,?)");
 			
 			$productID=$newProductObject->setProductID();
 			$bakerID=$_SESSION["bakerID"];
@@ -38,7 +38,7 @@
 			$productDescription=$newProductObject->setProductDescription();
 			
             
-            $prepStatement->bind_param("ssss",$productID,$bakerID,$price,$productDescription);
+            $prepStatement->bind_param("sss",$bakerID,$price,$productDescription);
 			if($prepStatement->execute())
 			{
 				return true;
