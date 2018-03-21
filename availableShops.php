@@ -1,8 +1,6 @@
 <?php 
 
     include("DAO/shopFinder.php");
-    // Report all errors except E_NOTICE   
-    // error_reporting(E_ALL ^ E_NOTICE);  
 
 
     function testInput($data) 
@@ -43,7 +41,7 @@
                 
                 echo "<input type='checkbox'>";
                 echo "<br>";
-                echo "<input type='submit' value='Visit page'>";              
+                echo "<a href";              
                 
                 echo "<br><br>";
                 $start++;

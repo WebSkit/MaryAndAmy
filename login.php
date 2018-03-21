@@ -1,100 +1,88 @@
 
 
 <?php
-session_start();
-$conn = mysqli_connect("localhost","root","","maryandamy");
+	require(realpath(dirname(__FILE__).'\databaseDetails.php'));
+	session_start();
 
-$message="Version 1";
+	$message="Version 1";
 
-if(isset($_POST["login"]))
+	function getConnection()
 	{
-		$secretKey=$SECRET;//the reCAPTCHA secret key
-		$response=$_POST["g-recaptcha-response"];//required reCAPTCHA response(aka sends the user data to google)
-		$ip=$_SERVER['REMOTE_ADDR'];
-
-		$url=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$response."&remoteip=".$ip);//the data is sent to this google page
-		//file_get_contents, in this case, sends a request to google and gets the JSON response back in the form of a string
-		$arrayResult=json_decode($url,true);//a JSON object was returned, converts to an array
-		//param2=true means that it is returning an associative array
-
-
-		echo '<pre>';  print_r(arrayResult); echo '</pre>';
-		
-		if($arrayResult["login"]==true)
+		$connection=new mysqli($GLOBALS["server"],$GLOBALS["usernameS"],$GLOBALS["passwordS"],$GLOBALS["database"]);
+		if($connection->connect_error)
 		{
-			$validation = new Validation();
-			$CustomerEmail = testInput($_POST['email']);
-			$password = testInput($_POST["password"]);
-			
-			if($validation -> validateAll($email) && $password == $passwordReenter) 
-			{
-				$tempCustomer=new Customer($firstName,$password,$surname,$email,$addressLine1,$addressLine2,$county,$postcode);
-				//var_dump($temp_customer);
-				$tempDAO=new customerDAO();
-				$accountCreated=$tempDAO->createCustomer($tempCustomer);
-			}
-			if($accountCreated==true)
-			{
-				echo "account created";
-			}
-			else
-			{
-				echo "something went wrong, please try again later";
-			}
-		}//if the reCAPTCHA was a success(for the user)
-		else
-		{
-			echo "An error occured, please try again";
-		}//else if the reCAPTCHA was a failure(for the user)
-	}//if data was submitted successfully from the form
+			die("Failed to establish a connection, please try again later");
+		}//if there was a connection error
+			return $connection;
+    }
 
 
-if(!empty($_POST["login"])) 
-{
-    $bakerResult = mysqli_query($conn,"SELECT * FROM baker WHERE contactEmail='" .
-                           $_POST["email"] . "' and password = '". $_POST["password"]."'");
+    // if the login button hasn't been clicked
+	if(isset($_POST["login"]))
+	{
+		//Query for each account types
+    	$bakerConnQuery = "SELECT * FROM baker WHERE contactEmail='" .
+                           $_POST["email"] . "' and password = '". $_POST["password"]."'";
     
-     $customererResult = mysqli_query($conn,"SELECT * FROM customer WHERE email='" .
-                           $_POST["email"] . "' and password = '". $_POST["password"]."'");
+    	$customerConnQuery = "SELECT * FROM customer WHERE email='" .
+                           $_POST["email"] . "' and password = '". $_POST["password"]."'";
     
-     $adminResult = mysqli_query($conn,"SELECT * FROM admin WHERE email='" .
-                           $_POST["email"] . "' and password = '". $_POST["password"]."'");
+    	$adminConnQuery = "SELECT * FROM admin WHERE email='" .
+                           $_POST["email"] . "' and password = '". $_POST["password"]."'";
     
-    $bakerRow  = mysqli_fetch_array($bakerResult);
-	$customerRow  = mysqli_fetch_array($customererResult);
-    $adminRow  = mysqli_fetch_array($adminResult);
-    
-    
-	if(is_array($customerRow)) 
-    {
-	   $_SESSION["customerID"] = $customerRow['customerID'];
-	} 
-    if(is_array($bakerRow))
-    {
-	   $_SESSION["bakerID"] = $bakerRow['bakerID'];
-	}
-    if(is_array($adminRow))
-    {
-	   $_SESSION["adminID"] = $adminRow['adminID'];
-	}
-     else 
-    {
-	   $message = "Invalid Email address or Password!";
-	}
-}
+        //Stores getConnection fuction
+    	$connection = getConnection();
 
-if(!empty($_POST["logout"])) 
-{
-	session_destroy();
-    header("Refresh:0");
-}
+    	//Stores query results 
+		$bakerResult = $connection->query($bakerConnQuery);
+		$customerResult = $connection->query($customerConnQuery);
+		$adminResult = $connection->query($adminConnQuery);
+
+		//Variable used to store specific query rows
+    	$bakerRow  = $bakerResult->fetch_assoc();
+		$customerRow  = $customerResult->fetch_assoc();
+    	$adminRow  = $adminResult->fetch_assoc();
+    
+    	//If account type query is a match
+    	//Create new session variables
+    	//
+		if($customerRow != null) 
+    	{
+    		//Current session has account type 'customer'
+	   		$_SESSION["accountType"] = "customer";
+	   		//Current sessionID is the customerID
+	   		$_SESSION["customerSessionID"] = $customerRow['customerID'];
+		} 
+    	else if($bakerRow != null)
+    	{	
+	   		$_SESSION["accountType"] = "baker";
+	   		$_SESSION["bakerSessionID"] = $bakerRow['bakerID'];
+		}
+    	else if($adminRow != null)
+    	{
+	   		$_SESSION["accountType"] = "admin";
+	   		$_SESSION["adminSessionID"] = $adminRow['adminID'];
+		}
+     	else
+    	{
+	   		$message = "Invalid Email address or Password!";
+		}
+
+	}
+
+	if(!empty($_POST["logout"])) 
+	{
+		session_destroy();
+    	header("Refresh:0");
+	}
 ?>
 
 
 <html>
-<head>
-<title>User Login</title>
-<style>
+	<head>
+		<title>User Login</title>
+		<style>
+
 #login_form {
 	padding: 20px 60px;
 	background: #B6E0FF;
@@ -142,72 +130,81 @@ if(!empty($_POST["logout"]))
 	width:auto;
 }
 </style>
-</head>
-<body>
-<div>
-    
-<div style="display:block;margin:0px auto;">
-    
-    
-<?php if(empty($_SESSION["customerID"]) and empty($_SESSION["bakerID"])  and empty($_SESSION["adminID"])) { ?>
-    
-    
-<form action="" method="post" id="login_form">  
-    <div class="error-message"><?php if(isset($message)) { echo $message; } ?></div>
-    <div class="field-group">
-        
-		<div><label for="login">Email address</label></div>
-		<div><input name="email" type="text" class="input-field"></div>
-	</div>
-	<div class="field-group">
-		<div><label for="password">Password</label></div>
-		<div><input name="password" type="password" class="input-field"> </div>
-	</div>
-	<div class="field-group">
-        <div>
-            <input type="submit" name="login" value="Login" class="form-submit-button">
-            <input type="submit" name="register" value="Register" class="form-submit-button">
-            <br>
-            <a href="https://www.w3schools.com/html/">forgot password?</a>
-        </div>
-	</div>
-    
-</form>
-<?php
-} else {
-    
-    if(!empty($_SESSION["bakerID"]))
-    {
-        $result =  mysqli_query($conn,"SELECT * FROM baker WHERE bakerID='" . $_SESSION["bakerID"] . "'");
-        $f = 'companyName';
-    }
-        if(!empty($_SESSION["adminID"]))
-    {
-        $result = mysqli_query($conn,"SELECT * FROM admin WHERE adminID='" . $_SESSION["adminID"] . "'");
-        $f = 'username';
-    }
-            if(!empty($_SESSION["customerID"]))
-    {
-        $result = mysqli_query($conn,"SELECT * FROM customer WHERE customerID='" . $_SESSION["customerID"] . "'");
-        
-        $f = 'firstName';
-    }
 
+	</head>
+	<body>
+		<div>
+    
+			<div style="display:block;margin:0px auto;">
+    
+    
+<?php 
+	if(empty($_SESSION["customerSessionID"]) and empty($_SESSION["bakerSessionID"])  and empty($_SESSION["adminSessionID"])) 
+	{ 
 
-
-$row  = mysqli_fetch_array($result);
 ?>
-<form action="" method="post" id="logoutForm">
     
-<div class="member-dashboard">Welcome <?php echo ucwords($row[$f]); ?>, You have successfully logged in!<br>
-Click to <input type="submit" name="logout" value="Logout" class="logout-button">.</div>
-</form>
-</div>
     
-</div>
-<?php } ?>
+			<form action="" method="post" id="login_form">  
+    			<div class="error-message"><?php if(isset($message)) { echo $message; } ?></div>
+   					 <div class="field-group">
+        
+						<div><label for="login">Email address</label></div>
+						<div><input name="email" type="text" class="input-field"></div>
+					</div>
+				<div class="field-group">
+					<div><label for="password">Password</label></div>
+					<div><input name="password" type="password" class="input-field"> </div>
+				</div>
+				<div class="field-group">
+        			<div>
+            			<input type="submit" name="login" value="Login" class="form-submit-button">
+            			<br>
+            			<a href="https://www.w3schools.com/html/">Register as a customer</a>
+        			</div>
+        			<a href="https://www.createbakerpath.com/html/">Register as a baker</a>
+            		<a href="forgotPassword.php">forgot password?</a>
+				</div>
     
-
-
-</body>
+			</form>
+<?php
+	} 
+	else
+	{
+		$connection=getConnection();
+    	if(!empty($_SESSION["bakerSessionID"]))
+    	{
+        	$newBakerQuery = "SELECT * FROM baker WHERE bakerID='" . $_SESSION["bakerSessionID"] . "'";
+        	$newBakerResult = $connection->query($newBakerQuery);
+        	$row  = $newBakerResult->fetch_assoc();
+        	$f = 'companyName';
+    	}
+        if(!empty($_SESSION["adminSessionID"]))
+    	{
+        	$newAdminQuery = "SELECT * FROM admin WHERE adminID='" . $_SESSION["adminSessionID"] . "'";
+        	$newAdminResult = $connection->query($newAdminQuery);
+        	$row  = $newAdminResult->fetch_assoc();
+        	$f = 'username';
+    	}
+        if(!empty($_SESSION["customerSessionID"]))
+    	{
+        	$newCustomerQuery = "SELECT * FROM customer WHERE customerID='" . $_SESSION["customerSessionID"] . "'";
+        	$newCustomerResult = $connection->query($newCustomerQuery);
+        	$row  = $newCustomerResult->fetch_assoc();
+        	$f = 'firstName';
+    	}
+?>
+				<form action="" method="post" id="logoutForm">
+    
+					<div class="member-dashboard">Welcome <?php echo ucwords($row[$f]); ?>, You have successfully logged in!<br>
+					Click to <input type="submit" name="logout" value="Logout" class="logout-button">.</div>
+					<a href="bakerPage(customersView).php">clcikefwe</a>
+				</form>
+			</div>
+    
+		</div>
+<?php 
+	}
+?>
+	</body>
 </html>
