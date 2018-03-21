@@ -1,8 +1,12 @@
 
 
 <?php
+
+if (session_status() == PHP_SESSION_NONE) {
+session_start();    
+}
+
 	require(realpath(dirname(__FILE__).'\databaseDetails.php'));
-	session_start();
 
 	$message="Version 1";
 
@@ -19,12 +23,13 @@
 
     // if the login button hasn't been clicked
 	if(isset($_POST["login"]))
+
 	{
 		//Query for each account types
     	$bakerConnQuery = "SELECT * FROM baker WHERE contactEmail='" .
                            $_POST["email"] . "' and password = '". $_POST["password"]."'";
-    
-    	$customerConnQuery = "SELECT * FROM customer WHERE email='" .
+
+     	$customerConnQuery = "SELECT * FROM customer WHERE email='" .
                            $_POST["email"] . "' and password = '". $_POST["password"]."'";
     
     	$adminConnQuery = "SELECT * FROM admin WHERE email='" .
@@ -42,35 +47,43 @@
     	$bakerRow  = $bakerResult->fetch_assoc();
 		$customerRow  = $customerResult->fetch_assoc();
     	$adminRow  = $adminResult->fetch_assoc();
-    
+
     	//If account type query is a match
     	//Create new session variables
     	//
 		if($customerRow != null) 
     	{
+    		/*
     		//Current session has account type 'customer'
 	   		$_SESSION["accountType"] = "customer";
 	   		//Current sessionID is the customerID
 	   		$_SESSION["customerSessionID"] = $customerRow['customerID'];
+			*/
+	   		$_SESSION["userId"] = $customerRow['customerID'];
+	   		$_SESSION["accountType"]="customer";
+	   		$url="customerHome.php";
+	  	    header('Location: '.$url);
 		} 
     	else if($bakerRow != null)
     	{	
-	   		$_SESSION["accountType"] = "baker";
-	   		$_SESSION["bakerSessionID"] = $bakerRow['bakerID'];
+	   		$_SESSION["userId"] = $bakerRow['bakerID'];
+	   		$_SESSION["accountType"]="baker";
+	    	$url="bakerPage(bakersView).php";
+	  		header('Location: '.$url);
 		}
     	else if($adminRow != null)
     	{
-	   		$_SESSION["accountType"] = "admin";
-	   		$_SESSION["adminSessionID"] = $adminRow['adminID'];
+	   		$_SESSION["userId"] = $adminRow['adminID'];
+	   		$_SESSION["accountType"]="admin";
+	    	$url="adminHome.php";
+	 		header('Location: '.$url);
 		}
      	else
     	{
 	   		$message = "Invalid Email address or Password!";
 		}
-
 	}
-
-	if(!empty($_POST["logout"])) 
+	else if(isset($_POST["logout"])) 
 	{
 		session_destroy();
     	header("Refresh:0");
@@ -139,7 +152,7 @@
     
     
 <?php 
-	if(empty($_SESSION["customerSessionID"]) and empty($_SESSION["bakerSessionID"])  and empty($_SESSION["adminSessionID"])) 
+	if(empty($_SESSION["userId"]))
 	{ 
 
 ?>
@@ -172,34 +185,43 @@
 	else
 	{
 		$connection=getConnection();
-    	if(!empty($_SESSION["bakerSessionID"]))
+    	if($_SESSION["accountType"] == "baker")
     	{
-        	$newBakerQuery = "SELECT * FROM baker WHERE bakerID='" . $_SESSION["bakerSessionID"] . "'";
+        	$newBakerQuery = "SELECT * FROM baker WHERE bakerID='" . $_SESSION["userId"] . "'";
         	$newBakerResult = $connection->query($newBakerQuery);
         	$row  = $newBakerResult->fetch_assoc();
         	$f = 'companyName';
     	}
-        if(!empty($_SESSION["adminSessionID"]))
+        else if($_SESSION["accountType"] == "admin")
     	{
-        	$newAdminQuery = "SELECT * FROM admin WHERE adminID='" . $_SESSION["adminSessionID"] . "'";
+        	$newAdminQuery = "SELECT * FROM admin WHERE adminID='" . $_SESSION["userId"] . "'";
         	$newAdminResult = $connection->query($newAdminQuery);
         	$row  = $newAdminResult->fetch_assoc();
         	$f = 'username';
     	}
-        if(!empty($_SESSION["customerSessionID"]))
+        else if($_SESSION["accountType"] == "customer")
     	{
-        	$newCustomerQuery = "SELECT * FROM customer WHERE customerID='" . $_SESSION["customerSessionID"] . "'";
+        	$newCustomerQuery = "SELECT * FROM customer WHERE customerID='" . $_SESSION["userId"] . "'";
         	$newCustomerResult = $connection->query($newCustomerQuery);
         	$row  = $newCustomerResult->fetch_assoc();
         	$f = 'firstName';
     	}
 ?>
+<?php 	
+	if(isset($_SESSION["userId"]) && $_SESSION["userId"]!=null)
+	{ 
+?>
+
 				<form action="" method="post" id="logoutForm">
     
 					<div class="member-dashboard">Welcome <?php echo ucwords($row[$f]); ?>, You have successfully logged in!<br>
 					Click to <input type="submit" name="logout" value="Logout" class="logout-button">.</div>
 					<a href="bakerPage(customersView).php">clcikefwe</a>
 				</form>
+<?php
+	} 
+?>
+
 			</div>
     
 		</div>
